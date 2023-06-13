@@ -159,7 +159,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         let newFlower = arObject.clone();
         newFlower.visible = true;
         newFlower.matrix = matrix;
-        newFlower.matrix.makeScale(0.3,0.3,0.3);
+        newFlower.scale.set(0.1, 0.1, 0.1);
         scene.addNode(newFlower);
 
         flowers.push(newFlower);
