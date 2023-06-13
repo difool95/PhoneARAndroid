@@ -67,11 +67,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       let flower = new Gltf2Node({url: 'media/gltf/sunflower/phone.gltf'});
       arObject.addNode(flower);
-      vec3.set(arObject.scale, 0.15, 0.15, 0.15);
       let reticle = new Gltf2Node({url: 'media/gltf/reticle/reticle.gltf'});
       reticle.visible = false;
       scene.addNode(reticle);
-
+      
       // Having a really simple drop shadow underneath an object helps ground
       // it in the world without adding much complexity.
       let shadow = new DropShadowNode();
@@ -159,7 +158,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       function addARObjectAt(matrix) {
         let newFlower = arObject.clone();
         newFlower.visible = true;
-        console.log(matrix);
+        matrix.scale(new THREE.Vector3(0.3, 0.3, 0.3));
         newFlower.matrix = matrix;
 
         scene.addNode(newFlower);
