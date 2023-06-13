@@ -66,7 +66,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       scene.addNode(arObject);
 
       let flower = new Gltf2Node({url: 'media/gltf/sunflower/phone.gltf'});
-      flower.scale.set(0.1, 0.1, 0.1); // Set the scale to (2, 2, 2) for doubling the size
+      console.log('Before scale:', flower.scale); // Log the initial scale
+      flower.scale.set(0.3, 0.3, 0.3); // Set the scale to (0.3, 0.3, 0.3)
+      console.log('After scale:', flower.scale)
       arObject.addNode(flower);
 
       let reticle = new Gltf2Node({url: 'media/gltf/reticle/reticle.gltf'});
