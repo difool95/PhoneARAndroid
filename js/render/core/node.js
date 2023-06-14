@@ -204,7 +204,7 @@ export class Node {
     return this._matrix;
   }
 
-  set matrix(value, newScale) {
+  set matrix(value) {
     if (value) {
       if (!this._matrix) {
         this._matrix = mat4.create();
@@ -217,7 +217,6 @@ export class Node {
     this._dirtyTRS = false;
     this._translation = null;
     this._rotation = null;
-    this._scale = newScale;
   }
 
   get matrix() {
