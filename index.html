@@ -158,9 +158,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       function addARObjectAt(matrix) {
         let newFlower = arObject.clone();
         newFlower.visible = true;
-        newFlower.matrix = matrix;
-        console.log(newFlower);
         newFlower.scale =  vec3.clone(new Float32Array([0.2, 0.2, 0.2]));
+        newFlower.matrix = matrix;
         console.log(newFlower);
         scene.addNode(newFlower);
 
