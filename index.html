@@ -217,6 +217,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
         scene.endFrame();
       }
+            initXR();
+
 function onResize() {
         console.log(gl.canvas.clientWidth * window.devicePixelRatio);
           gl.canvas.width = gl.canvas.clientWidth * window.devicePixelRatio;
@@ -225,7 +227,6 @@ function onResize() {
         window.addEventListener('resize', onResize);
         onResize();
       // Start the XR application.
-      initXR();
     </script>
   </body>
 </html>
