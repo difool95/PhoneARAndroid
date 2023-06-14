@@ -162,7 +162,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         newFlower.scale =  vec3.clone(new Float32Array([0.2, 0.2, 0.2]));
         newFlower.matrix = matrix;
         mat4.getTranslation(flowerTranslate, newFlower.matrix);
-        console.log(flowerTranslate);
+        newFlower.scale = vec3.clone(new Float32Array([0.05, 0.05, 0.05]));
+        newFlower.translation = flowerTranslate;
+
         scene.addNode(newFlower);
 
         flowers.push(newFlower);
