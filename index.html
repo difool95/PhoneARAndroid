@@ -67,9 +67,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       let flower = new Gltf2Node({url: 'media/gltf/sunflower/phone.gltf'});
       arObject.addNode(flower);
-      console.log(arObject);
       arObject.scale = vec3.clone(new Float32Array([0.2, 0.2, 0.2]));
-      console.log(arObject);
       let reticle = new Gltf2Node({url: 'media/gltf/reticle/reticle.gltf'});
       reticle.visible = false;
       scene.addNode(reticle);
@@ -161,8 +159,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       function addARObjectAt(matrix) {
         let newFlower = arObject.clone();
         newFlower.visible = true;
+        console.log(newFlower);
         newFlower.matrix = matrix;
-        newFlower.scale.set(0.005, 0.005, 0.005);
+        console.log(newFlower);
         scene.addNode(newFlower);
 
         flowers.push(newFlower);
