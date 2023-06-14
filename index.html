@@ -65,7 +65,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       arObject.visible = false;
       scene.addNode(arObject);
 
-      let flower = new Gltf2Node({url: 'media/gltf/sunflower/i1.gltf'});
+      let flower = new Gltf2Node({url: 'media/gltf/sunflower/sunflower.gltf'});
       arObject.addNode(flower);
       let reticle = new Gltf2Node({url: 'media/gltf/reticle/reticle.gltf'});
       reticle.visible = false;
@@ -159,10 +159,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         let flowerTranslate = vec3.create();;
         let newFlower = arObject.clone();
         newFlower.visible = true;
-        newFlower.scale =  vec3.clone(new Float32Array([0.2, 0.2, 0.2]));
         newFlower.matrix = matrix;
         mat4.getTranslation(flowerTranslate, newFlower.matrix);
-        newFlower.scale = vec3.clone(new Float32Array([0.05, 0.05, 0.05]));
+        //newFlower.scale = vec3.clone(new Float32Array([0.05, 0.05, 0.05]));
+        newFlower.scale = vec3.clone(new Float32Array([0.2, 0.2, 0.2]));
+
         newFlower.translation = flowerTranslate;
 
         scene.addNode(newFlower);
