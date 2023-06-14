@@ -69,6 +69,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       arObject.addNode(flower);
       let reticle = new Gltf2Node({url: 'media/gltf/reticle/reticle.gltf'});
       reticle.visible = false;
+      console.log(reticle);
       scene.addNode(reticle);
       
       // Having a really simple drop shadow underneath an object helps ground
@@ -198,7 +199,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           if (hitTestResults.length > 0) {
             let pose = hitTestResults[0].getPose(xrRefSpace);
             reticle.visible = true;
-            console.log(pose.transform.matrix);
             reticle.matrix = pose.transform.matrix;
           }
         }
