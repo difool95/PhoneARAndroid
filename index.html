@@ -46,7 +46,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       import {Node} from './js/render/core/node.js';
       import {Gltf2Node} from './js/render/nodes/gltf2.js';
       import {DropShadowNode} from './js/render/nodes/drop-shadow.js';
-      import {vec3} from './js/render/math/gl-matrix.js';
+      import {vec3, mat4} from './js/render/math/gl-matrix.js';
       import {Ray} from './js/render/math/ray.js';
 
       // XR globals.
@@ -156,11 +156,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       // Adds a new object to the scene at the
       // specified transform.
       function addARObjectAt(matrix) {
+        let flowerScale;
         let newFlower = arObject.clone();
         newFlower.visible = true;
         newFlower.scale =  vec3.clone(new Float32Array([0.2, 0.2, 0.2]));
         newFlower.matrix = matrix;
-        console.log(newFlower);
+        mat4.getTranslation(flowerScale, newFlower.matrix);
+        console.log(flowerScale);
         scene.addNode(newFlower);
 
         flowers.push(newFlower);
