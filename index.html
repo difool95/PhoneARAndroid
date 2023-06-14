@@ -156,13 +156,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       // Adds a new object to the scene at the
       // specified transform.
       function addARObjectAt(matrix) {
-        let flowerScale;
+        let flowerTranslate = null;
         let newFlower = arObject.clone();
         newFlower.visible = true;
         newFlower.scale =  vec3.clone(new Float32Array([0.2, 0.2, 0.2]));
         newFlower.matrix = matrix;
-        mat4.getTranslation(flowerScale, newFlower.matrix);
-        console.log(flowerScale);
+        console.log(newFlower.matrix[12]);
+        mat4.getTranslation(flowerTranslate, newFlower.matrix);
+        console.log(flowerTranslate);
         scene.addNode(newFlower);
 
         flowers.push(newFlower);
