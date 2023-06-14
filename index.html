@@ -122,12 +122,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
           scene.setRenderer(renderer);
         }
-function onResize() {
-          gl.canvas.width = gl.canvas.clientWidth * window.devicePixelRatio;
-          gl.canvas.height = gl.canvas.clientHeight * window.devicePixelRatio;
-        }
-        window.addEventListener('resize', onResize);
-        onResize();
+
 
         session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
 
@@ -222,7 +217,13 @@ function onResize() {
 
         scene.endFrame();
       }
-
+function onResize() {
+        console.log(gl.canvas.clientWidth * window.devicePixelRatio);
+          gl.canvas.width = gl.canvas.clientWidth * window.devicePixelRatio;
+          gl.canvas.height = gl.canvas.clientHeight * window.devicePixelRatio;
+        }
+        window.addEventListener('resize', onResize);
+        onResize();
       // Start the XR application.
       initXR();
     </script>
