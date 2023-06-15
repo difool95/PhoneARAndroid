@@ -217,8 +217,6 @@ export class Gltf2Loader {
 
         materials.push(glMaterial);
       }
-            console.log(materials);
-
     }
 
     let accessors = json.accessors;
