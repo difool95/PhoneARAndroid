@@ -155,7 +155,6 @@ export class Gltf2Loader {
 
     let textures = [];
     if (json.textures) {
-      console.log(json);
       for (let texture of json.textures) {
         let image = images[texture.source];
         let glTexture = image.texture(bufferViews);
@@ -218,6 +217,8 @@ export class Gltf2Loader {
 
         materials.push(glMaterial);
       }
+            console.log(materials);
+
     }
 
     let accessors = json.accessors;
