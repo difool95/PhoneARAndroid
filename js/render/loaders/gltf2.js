@@ -155,6 +155,7 @@ export class Gltf2Loader {
 
     let textures = [];
     if (json.textures) {
+      console.log(json);
       for (let texture of json.textures) {
         let image = images[texture.source];
         let glTexture = image.texture(bufferViews);
@@ -407,16 +408,14 @@ class Gltf2Resource {
     if (!this._texture) {
       let img = new Image();
       this._texture = new ImageTexture(img);
+
       if (this.json.uri) {
         if (isDataUri(this.json.uri)) {
           img.src = this.json.uri;
-          console.log(this.json.uri);
         } else {
           img.src = `${this.baseUrl}${this.json.uri}`;
-          console.log(`${this.baseUrl}${this.json.uri}`);
         }
       } else {
-        console.log('hey');
         this._texture.genDataKey();
         let view = bufferViews[this.json.bufferView];
         view.dataView().then((dataView) => {
