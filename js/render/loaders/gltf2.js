@@ -407,14 +407,16 @@ class Gltf2Resource {
     if (!this._texture) {
       let img = new Image();
       this._texture = new ImageTexture(img);
-      console.log(this._texture);
       if (this.json.uri) {
         if (isDataUri(this.json.uri)) {
           img.src = this.json.uri;
+          console.log(this.json.uri);
         } else {
           img.src = `${this.baseUrl}${this.json.uri}`;
+          console.log(`${this.baseUrl}${this.json.uri}`);
         }
       } else {
+        console.log('hey');
         this._texture.genDataKey();
         let view = bufferViews[this.json.bufferView];
         view.dataView().then((dataView) => {
