@@ -5,97 +5,108 @@ import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/js
 // To allow for importing the .gltf file
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 
-//Create a Three.JS Scene
-const scene = new THREE.Scene();
-//create a new camera with positions and angles
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+import { ARButton } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/webxr/ARButton.js";
 
-//Keep track of the mouse position, so we can make the eye move
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
+let scene, camera, renderer, controls;
+let reticle, model;
 
-//Keep the 3D object on a global variable so we can access it later
-let object;
+init();
+animate();
 
-//OrbitControls allow the camera to move around the scene
-let controls;
+function init() {
+  // Create a Three.JS Scene
+  scene = new THREE.Scene();
 
-//Set which object to render
-let objToRender = 'phone';
+  // Create a new camera with positions and angles
+  camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
 
-//Instantiate a loader for the .gltf file
-const loader = new GLTFLoader();
+  // Set the camera position
+  camera.position.set(0, 0, 0.1);
 
-//Load the file
-loader.load(
-  `models/phone/phone.gltf`,
-  function (gltf) {
-    //If the file is loaded, add it to the scene
-    object = gltf.scene;
-    scene.add(object);
-  },
-  function (xhr) {
-    //While it is loading, log the progress
-    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-  },
-  function (error) {
-    //If there is an error, log it
-    console.error(error);
-  }
-);
+  // Create a WebGL renderer
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.xr.enabled = true;
 
-//Instantiate a new renderer and set its size
-const renderer = new THREE.WebGLRenderer({ alpha: true }); //Alpha: true allows for the transparent background
-renderer.setSize(window.innerWidth, window.innerHeight);
+  // Add the renderer to the DOM
+  document.body.appendChild(renderer.domElement);
+  document.body.appendChild(ARButton.createButton(renderer));
 
-//Add the renderer to the DOM
-document.getElementById("container3D").appendChild(renderer.domElement);
+  // Set up the AR reticle
+  reticle = new THREE.Mesh(
+    new THREE.RingBufferGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2),
+    new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true })
+  );
+  reticle.matrixAutoUpdate = false;
+  reticle.visible = false;
+  scene.add(reticle);
 
-//Set how far the camera will be from the 3D model
-camera.position.z = objToRender === "dino" ? 25 : 500;
+  // Instantiate a loader for the .gltf file
+  const loader = new GLTFLoader();
 
-//Add lights to the scene, so we can actually see the 3D model
-const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
-topLight.position.set(500, 500, 500) //top-left-ish
-topLight.castShadow = true;
-scene.add(topLight);
+  // Load the GLTF file
+  loader.load(
+    `models/phone/phone.gltf`,
+    function (gltf) {
+      // If the file is loaded, add it to the scene
+      model = gltf.scene;
+      model.visible = false;
+      scene.add(model);
+    },
+    function (xhr) {
+      // While it is loading, log the progress
+      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    },
+    function (error) {
+      // If there is an error, log it
+      console.error(error);
+    }
+  );
 
-//const ambientLight = new THREE.AmbientLight(0x333333, objToRender === "dino" ? 20 : 20);
-const ambientLight = new THREE.AmbientLight(0x333333, 20);
+  // Set up the AR session event listeners
+  renderer.xr.addEventListener("sessionstart", function () {
+    reticle.visible = true;
+  });
 
-scene.add(ambientLight);
+  renderer.xr.addEventListener("sessionend", function () {
+    reticle.visible = false;
+    model.visible = false;
+  });
 
-//This adds controls to the camera, so we can rotate / zoom it with the mouse
-if (objToRender === "dino") {
-  controls = new OrbitControls(camera, renderer.domElement);
+  // Add a listener to the window, so we can resize the window and the camera
+  window.addEventListener("resize", function () {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // Handle click events
+  window.addEventListener("click", function () {
+    if (model.visible) {
+      model.visible = false;
+    } else {
+      const hitTestSource = renderer.xr.getHitTestSource();
+      const hitTestResults = renderer.xr.getHitTestResults(hitTestSource);
+
+      if (hitTestResults.length > 0) {
+        const hit = hitTestResults[0];
+        reticle.visible = false;
+        model.position.setFromMatrixPosition(hit.getPose().matrix);
+        model.visible = true;
+      }
+    }
+  });
 }
 
-//Render the scene
 function animate() {
-  requestAnimationFrame(animate);
-  //Here we could add some code to update the scene, adding some automatic movement
+  renderer.setAnimationLoop(render);
+}
 
-  //Make the eye move
-  if (object && objToRender === "phone") {
-    //I've played with the constants here until it looked good 
-    object.rotation.y = -3 + mouseX / window.innerWidth * 3;
-    object.rotation.x = -1.2 + mouseY * 2.5 / window.innerHeight;
-  }
+function render() {
   renderer.render(scene, camera);
 }
-
-//Add a listener to the window, so we can resize the window and the camera
-window.addEventListener("resize", function () {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-//add mouse position listener, so we can make the eye move
-document.onmousemove = (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-}
-
-//Start the 3D rendering
-animate();
