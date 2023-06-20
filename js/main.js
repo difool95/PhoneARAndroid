@@ -51,7 +51,7 @@ function init() {
 
   // Load the GLTF file
   loader.load(
-    `models/phone/phone.gltf`,
+    `models/phonee/phonee.gltf`,
     function (gltf) {
       // If the file is loaded, add it to the scene
       model = gltf.scene;
@@ -97,6 +97,7 @@ function init() {
         const hit = hitTestResults[0];
         reticle.visible = false;
         model.position.setFromMatrixPosition(hit.getPose().matrix);
+        //model.position.setFromMatrixPosition(hit.getPose(renderer.xr.getReferenceSpace()).transform.matrix);
         model.visible = true;
       }
     }
