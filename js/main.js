@@ -28,7 +28,7 @@ const loader = new GLTFLoader();
 
 //Load the file
 loader.load(
-  `models/${objToRender}/phone.gltf`,
+  `models/phone/phone.gltf`,
   function (gltf) {
     //If the file is loaded, add it to the scene
     object = gltf.scene;
@@ -74,7 +74,7 @@ function animate() {
   //Here we could add some code to update the scene, adding some automatic movement
 
   //Make the eye move
-  if (object && objToRender === "eye") {
+  if (object && objToRender === "phone") {
     //I've played with the constants here until it looked good 
     object.rotation.y = -3 + mouseX / window.innerWidth * 3;
     object.rotation.x = -1.2 + mouseY * 2.5 / window.innerHeight;
