@@ -48,6 +48,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       import {DropShadowNode} from './js/render/nodes/drop-shadow.js';
       import {vec3, mat4} from './js/render/math/gl-matrix.js';
       import {Ray} from './js/render/math/ray.js';
+      import {SkyboxNode} from './js/render/nodes/skybox.js';
 
       // XR globals.
       let xrButton = null;
@@ -71,7 +72,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       let reticle = new Gltf2Node({url: 'media/gltf/reticle/reticle.gltf'});
       reticle.visible = false;
       scene.addNode(reticle);
-      
+      // Still adding a skybox, but only for the benefit of the inline view.
+      let skybox = new SkyboxNode({url: 'media/textures/milky-way-4k.png'});
+      scene.addNode(skybox);
       // Having a really simple drop shadow underneath an object helps ground
       // it in the world without adding much complexity.
       //let shadow = new DropShadowNode();
@@ -113,7 +116,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       function onSessionStarted(session) {
         session.addEventListener('end', onSessionEnded);
         session.addEventListener('select', onSelect);
-
+          // we want the real world to show through.
+          skybox.visible = false;
+        
         if (!gl) {
           gl = createWebGLContext({
             xrCompatible: true
@@ -161,6 +166,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       function onSessionEnded(event) {
         xrButton.setSession(null);
+        // Turn the background back on when we go back to the inlive view.
+          skybox.visible = true;
       }
 
       // Adds a new object to the scene at the
