@@ -45,6 +45,10 @@ function init() {
   reticle.matrixAutoUpdate = false;
   reticle.visible = false;
   scene.add(reticle);
+  //Add lights to the scene, so we can actually see the 3D model
+  const topLight = new THREE.DirectionalLight(0xffffff, 4); // (color, intensity)
+  topLight.position.set(500, 500, 500) //top-left-ish
+  topLight.castShadow = true;
   const ambientLight = new THREE.AmbientLight(0x333333, 20);
   scene.add(ambientLight);
   // Instantiate a loader for the .gltf file
