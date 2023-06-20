@@ -45,7 +45,8 @@ function init() {
   reticle.matrixAutoUpdate = false;
   reticle.visible = false;
   scene.add(reticle);
-
+  const ambientLight = new THREE.AmbientLight(0x333333, 20);
+  scene.add(ambientLight);
   // Instantiate a loader for the .gltf file
   const loader = new GLTFLoader();
 
