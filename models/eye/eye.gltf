@@ -1,0 +1,340 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v3.4.50",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                7
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "CORNEA__CORNEA__0"
+        },
+        {
+            "children" : [
+                0
+            ],
+            "name" : "CORNEA_"
+        },
+        {
+            "mesh" : 1,
+            "name" : "IRIS_FINAL_IRIS_FINAL_0"
+        },
+        {
+            "children" : [
+                2
+            ],
+            "name" : "IRIS_FINAL"
+        },
+        {
+            "children" : [
+                1,
+                3
+            ],
+            "name" : "RootNode.001"
+        },
+        {
+            "children" : [
+                4
+            ],
+            "name" : "22ec5c9939344a4f937fbad873d26bed.fbx",
+            "rotation" : [
+                0.70710688829422,
+                0,
+                0,
+                0.7071066498756409
+            ]
+        },
+        {
+            "children" : [
+                5
+            ],
+            "name" : "RootNode (model correction matrix)"
+        },
+        {
+            "children" : [
+                6
+            ],
+            "name" : "RootNode (gltf orientation matrix)",
+            "rotation" : [
+                -0.7071069478988647,
+                0,
+                0,
+                0.7071066498756409
+            ],
+            "scale" : [
+                0.00132905098143965,
+                0.0013290508650243282,
+                0.0013290508650243282
+            ],
+            "translation" : [
+                0.010691958479583263,
+                0.05550549924373627,
+                -0.00206893403083086
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "alphaMode" : "BLEND",
+            "doubleSided" : true,
+            "name" : "CORNEA",
+            "normalTexture" : {
+                "index" : 0
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "IRIS_FINAL",
+            "normalTexture" : {
+                "index" : 1,
+                "scale" : 0.007790221832692623
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 2
+                },
+                "metallicFactor" : 0,
+                "metallicRoughnessTexture" : {
+                    "index" : 3
+                },
+                "roughnessFactor" : 0.6097273826599121
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "CORNEA__CORNEA__0",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "COLOR_0" : 0,
+                        "POSITION" : 1,
+                        "TEXCOORD_0" : 2,
+                        "NORMAL" : 3
+                    },
+                    "indices" : 4,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "IRIS_FINAL_IRIS_FINAL_0",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "COLOR_0" : 5,
+                        "POSITION" : 6,
+                        "TEXCOORD_0" : 7,
+                        "NORMAL" : 8
+                    },
+                    "indices" : 4,
+                    "material" : 1
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 2
+        },
+        {
+            "sampler" : 0,
+            "source" : 3
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "CORNEA_normal",
+            "uri" : "CORNEA_normal.png"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "IRIS_FINAL_normal",
+            "uri" : "IRIS_FINAL_normal.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "IRIS_FINAL_baseColor",
+            "uri" : "IRIS_FINAL_baseColor.jpg"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "IRIS_FINAL_metallicRoughness",
+            "uri" : "IRIS_FINAL_metallicRoughness.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5123,
+            "count" : 9002,
+            "normalized" : true,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 9002,
+            "max" : [
+                113.9094009399414,
+                98.55359649658203,
+                98.5530776977539
+            ],
+            "min" : [
+                -99.74472045898438,
+                -98.55359649658203,
+                -98.5530776977539
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 9002,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5126,
+            "count" : 9002,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5123,
+            "count" : 53280,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5123,
+            "count" : 9002,
+            "normalized" : true,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 9002,
+            "max" : [
+                112.78462982177734,
+                97.50563049316406,
+                97.50511169433594
+            ],
+            "min" : [
+                -98.59757995605469,
+                -97.50563049316406,
+                -97.50511169433594
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5126,
+            "count" : 9002,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 9002,
+            "type" : "VEC3"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 72016,
+            "byteOffset" : 0,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 108024,
+            "byteOffset" : 72016,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 72016,
+            "byteOffset" : 180040,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 108024,
+            "byteOffset" : 252056,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 106560,
+            "byteOffset" : 360080,
+            "target" : 34963
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 72016,
+            "byteOffset" : 466640,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 108024,
+            "byteOffset" : 538656,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 72016,
+            "byteOffset" : 646680,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 108024,
+            "byteOffset" : 718696,
+            "target" : 34962
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 826720,
+            "uri" : "eye.bin"
+        }
+    ]
+}
