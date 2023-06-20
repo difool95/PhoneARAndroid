@@ -55,7 +55,7 @@ function init() {
     function (gltf) {
       // If the file is loaded, add it to the scene
       model = gltf.scene;
-      model.visible = false;
+      model.visible = true;
       scene.add(model);
     },
     function (xhr) {
@@ -70,12 +70,12 @@ function init() {
 
   // Set up the AR session event listeners
   renderer.xr.addEventListener("sessionstart", function () {
-    reticle.visible = true;
+    //reticle.visible = true;
   });
 
   renderer.xr.addEventListener("sessionend", function () {
-    reticle.visible = false;
-    model.visible = false;
+    //reticle.visible = false;
+    //model.visible = false;
   });
 
   // Add a listener to the window, so we can resize the window and the camera
@@ -86,7 +86,7 @@ function init() {
   });
 
   // Handle click events
-  window.addEventListener("click", function () {
+ /* window.addEventListener("click", function () {
     if (model.visible) {
       model.visible = false;
     } else {
@@ -101,7 +101,7 @@ function init() {
         model.visible = true;
       }
     }
-  });
+  });*/
 }
 
 function animate() {
