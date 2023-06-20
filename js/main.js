@@ -49,6 +49,7 @@ function init() {
   const topLight = new THREE.DirectionalLight(0xffffff, 4); // (color, intensity)
   topLight.position.set(500, 500, 500) //top-left-ish
   topLight.castShadow = true;
+  scene.add(topLight);
   const ambientLight = new THREE.AmbientLight(0x333333, 20);
   scene.add(ambientLight);
   // Instantiate a loader for the .gltf file
