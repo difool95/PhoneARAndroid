@@ -57,7 +57,7 @@ function init() {
 
   // Load the GLTF file
   loader.load(
-    `models/phone/phone.gltf`,
+    `models/eye/eye.gltf`,
     function (gltf) {
       // If the file is loaded, add it to the scene
       model = gltf.scene;
