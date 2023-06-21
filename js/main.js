@@ -109,7 +109,7 @@ lights.slice(1).forEach(light => {
       console.error(error);
     }
   );
-  let controller = renderer.getController(0);
+  let controller = renderer.xr.getController(0);
   controller.addEventListener('select', onSelect);
   scene.add(controller);
 
