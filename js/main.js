@@ -45,6 +45,10 @@ function init() {
     requiredFeatures: ["hit-test"], optionalFeatures: [ "light-estimation" ]
   }));
 ///////////////////////////////////////////////////////////////
+
+	const defaultLight = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
+				defaultLight.position.set( 0.5, 1, 0.25 );
+				scene.add( defaultLight );
 // Don't add the XREstimatedLight to the scene initially.
 				// It doesn't have any estimated lighting values until an AR session starts.
 
