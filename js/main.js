@@ -59,11 +59,8 @@ function init() {
 
 					// The estimated lighting also provides an environment cubemap, which we can apply here.
 					if ( xrLight.environment ) {
-
 						scene.environment = xrLight.environment;
-
 					}
-
 				} );
 
 				xrLight.addEventListener( 'estimationend', () => {
@@ -109,8 +106,8 @@ const ballGeometry = new THREE.SphereGeometry( 0.175, 32, 32 );
 
 						const ballMaterial = new THREE.MeshStandardMaterial( {
 							color: 0xdddddd,
-							roughness: i / rows,
-							metalness: j / cols
+							roughness: 1,
+							metalness: 0
 						} );
 						const ballMesh = new THREE.Mesh( ballGeometry, ballMaterial );
 						ballMesh.position.set( ( i + 0.5 - rows * 0.5 ) * 0.4, ( j + 0.5 - cols * 0.5 ) * 0.4, 0 );
