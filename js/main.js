@@ -21,14 +21,14 @@ let object;
 let controls;
 
 //Set which object to render
-let objToRender = 'eye';
+let objToRender = 'dino';
 
 //Instantiate a loader for the .gltf file
 const loader = new GLTFLoader();
 
 //Load the file
 loader.load(
-  `models/eye/eye.gltf`,
+  `models/phone/phone.gltf`,
   function (gltf) {
     //If the file is loaded, add it to the scene
     object = gltf.scene;
@@ -55,12 +55,12 @@ document.getElementById("container3D").appendChild(renderer.domElement);
 camera.position.z = objToRender === "dino" ? 25 : 500;
 
 //Add lights to the scene, so we can actually see the 3D model
-const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
+const topLight = new THREE.DirectionalLight(0xffffff, 3); // (color, intensity)
 topLight.position.set(500, 500, 500) //top-left-ish
 topLight.castShadow = true;
 scene.add(topLight);
 
-const ambientLight = new THREE.AmbientLight(0x333333, objToRender === "dino" ? 5 : 1);
+const ambientLight = new THREE.AmbientLight(0x333333, objToRender === "dino" ? 12 : 1);
 scene.add(ambientLight);
 
 //This adds controls to the camera, so we can rotate / zoom it with the mouse
