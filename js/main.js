@@ -108,12 +108,12 @@ const ballGeometry = new THREE.SphereGeometry( 0.175, 32, 32 );
 
 					for ( let j = 0; j < cols; j ++ ) {
 
-						/*const ballMaterial = new THREE.MeshStandardMaterial( {
+						const ballMaterial = new THREE.MeshStandardMaterial( {
 							color: 0xdddddd,
 							roughness: 1,
 							metalness: 0
-						} );*/
-						const ballMaterial = new THREE.MeshPhysicalMaterial( {
+						} );
+						/*const ballMaterial = new THREE.MeshPhysicalMaterial( {
 					color: 0x000000,
 					metalness: 0,
 					roughness: 0,
@@ -126,7 +126,7 @@ const ballGeometry = new THREE.SphereGeometry( 0.175, 32, 32 );
 					reflectivity:1,
 					clearcoat:1,                  
 					transparent: true
-				} );
+				} );*/
 						const ballMesh = new THREE.Mesh( ballGeometry, ballMaterial );
 						ballMesh.position.set( ( i + 0.5 - rows * 0.5 ) * 0.4, ( j + 0.5 - cols * 0.5 ) * 0.4, 0 );
 						ballGroup.add( ballMesh );
