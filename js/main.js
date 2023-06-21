@@ -44,33 +44,23 @@ function init() {
     requiredFeatures: ["hit-test"]
   }));
   
-renderer.outputEncoding = THREE.sRGBEncoding;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.8;
+//renderer.outputEncoding = THREE.sRGBEncoding;
+//renderer.toneMapping = THREE.ACESFilmicToneMapping;
+//renderer.toneMappingExposure = 1.8;
 const rgbeloader = new RGBELoader();
 rgbeloader.load('media/hdr/background.hdr', function(texture){
   texture.mapping = THREE.EquirectangularReflectionMapping;
   //scene.background = texture;
   scene.environment = texture;
-});
 
-  
-  addReticleToScene(); //circular visual aid
-  // Instantiate a loader for the .gltf file
-  const loader = new GLTFLoader();
-
-  // Load the GLTF file
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 // Load the GLTF file
   loader.load(
     `models/phone/phone.gltf`,
     function (gltf) {
       // If the file is loaded, add it to the scene
       model = gltf.scene;
       model.visible = false;
-      model.traverse(function (object) {
-  if (object.isMesh) {
-    console.log(object);
-  }
-});
       scene.add(model);
       
     },
@@ -83,6 +73,17 @@ rgbeloader.load('media/hdr/background.hdr', function(texture){
       console.error(error);
     }
   );
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+});
+
+  
+  addReticleToScene(); //circular visual aid
+  // Instantiate a loader for the .gltf file
+  const loader = new GLTFLoader();
+
+ 
   let controller = renderer.xr.getController(0);
   controller.addEventListener('select', onSelect);
   scene.add(controller);
