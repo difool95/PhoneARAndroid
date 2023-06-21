@@ -186,6 +186,7 @@ function render(timestamp, frame) {
             reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix)
           }
           else{
+              console.log("hola");
               reticle.visible = false;
           }
         } 
@@ -200,10 +201,11 @@ function render(timestamp, frame) {
 
 function addReticleToScene(){
   const geometry = new THREE.RingBufferGeometry(0.15, 0.2, 32).rotateX(-Math.PI/2);
-  const material = new THREE.MeshBasicMaterial();
+  const material = new THREE.MeshStandardMaterial({color : 0xffffff * Math.random() });
   reticle = new THREE.Mesh(geometry, material);
+  reticle.name = "reticle";
   reticle.matrixAutoUpdate = false;
   reticle.visible = false;
   scene.add(reticle);
-  console.log(scene);
+  console.log(reticle);
 }
