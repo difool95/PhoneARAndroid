@@ -86,8 +86,8 @@ lights.slice(1).forEach(light => {
   light.castShadow = false; // disable shadow casting for the remaining lights
 });
 
-const loader = new RGBELoader();
-loader.load(hdrTextureURL, function(texture){
+const rgbeloader = new RGBELoader();
+rgbeloader.load(hdrTextureURL, function(texture){
   scene.background = texture;
 });
 
