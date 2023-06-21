@@ -70,10 +70,6 @@ const lights = [];
 const topLight = new THREE.DirectionalLight(0xffffff, 4); // (color, intensity)
 topLight.position.set(0, 500, 0); // directly above the scene
 topLight.castShadow = true;
-topLight.shadow.camera.top = 500; // adjust these values according to your scene size
-topLight.shadow.camera.bottom = -500;
-topLight.shadow.camera.left = -500;
-topLight.shadow.camera.right = 500;
 lights.push(topLight);
 
 // Bottom Light
