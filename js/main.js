@@ -61,27 +61,46 @@ scene.add(ambientLight);
 // Add directional lights
 const frontLight = new THREE.DirectionalLight(0xffffff, 1);
 frontLight.position.set(0, 0, 1);
+frontLight.rotation.x = Math.random() * Math.PI * 2;
+frontLight.rotation.y = Math.random() * Math.PI * 2;
+frontLight.rotation.z = Math.random() * Math.PI * 2;
 scene.add(frontLight);
 
 const backLight = new THREE.DirectionalLight(0xffffff, 1);
 backLight.position.set(0, 0, -1);
+backLight.rotation.x = Math.random() * Math.PI * 2;
+backLight.rotation.y = Math.random() * Math.PI * 2;
+backLight.rotation.z = Math.random() * Math.PI * 2;
 scene.add(backLight);
 
 const topLight = new THREE.DirectionalLight(0xffffff, 1);
 topLight.position.set(0, 1, 0);
+topLight.rotation.x = Math.random() * Math.PI * 2;
+topLight.rotation.y = Math.random() * Math.PI * 2;
+topLight.rotation.z = Math.random() * Math.PI * 2;
 scene.add(topLight);
 
 const bottomLight = new THREE.DirectionalLight(0xffffff, 1);
 bottomLight.position.set(0, -1, 0);
+bottomLight.rotation.x = Math.random() * Math.PI * 2;
+bottomLight.rotation.y = Math.random() * Math.PI * 2;
+bottomLight.rotation.z = Math.random() * Math.PI * 2;
 scene.add(bottomLight);
 
 const leftLight = new THREE.DirectionalLight(0xffffff, 1);
 leftLight.position.set(-1, 0, 0);
+leftLight.rotation.x = Math.random() * Math.PI * 2;
+leftLight.rotation.y = Math.random() * Math.PI * 2;
+leftLight.rotation.z = Math.random() * Math.PI * 2;
 scene.add(leftLight);
 
 const rightLight = new THREE.DirectionalLight(0xffffff, 1);
 rightLight.position.set(1, 0, 0);
+rightLight.rotation.x = Math.random() * Math.PI * 2;
+rightLight.rotation.y = Math.random() * Math.PI * 2;
+rightLight.rotation.z = Math.random() * Math.PI * 2;
 scene.add(rightLight);
+
 
 
 
