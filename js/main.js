@@ -54,50 +54,34 @@ document.getElementById("container3D").appendChild(renderer.domElement);
 //Set how far the camera will be from the 3D model
 camera.position.z = objToRender === "dino" ? 25 : 500;
 
-//Add lights to the scene, so we can actually see the 3D model
-/*const topLight = new THREE.DirectionalLight(0xffffff, 3); // (color, intensity)
-topLight.position.set(500, 500, 500) //top-left-ish
-topLight.castShadow = true;
-scene.add(topLight);*/
-
-const ambientLight = new THREE.AmbientLight(0xffffff, objToRender === "dino" ? 12 : 1);
+// Add ambient light
+const ambientLight = new THREE.AmbientLight(0x404040);
 scene.add(ambientLight);
 
-// Add lights to the scene, so we can actually see the 3D model
-const lights = [];
+// Add directional lights
+const frontLight = new THREE.DirectionalLight(0xffffff, 1);
+frontLight.position.set(0, 0, 1);
+scene.add(frontLight);
 
-// Top Light
-const topLight = new THREE.DirectionalLight(0xffffff, 4); // (color, intensity)
-topLight.position.set(0, 500, 0); // directly above the scene
-topLight.castShadow = true;
-lights.push(topLight);
+const backLight = new THREE.DirectionalLight(0xffffff, 1);
+backLight.position.set(0, 0, -1);
+scene.add(backLight);
 
-// Bottom Light
-const bottomLight = new THREE.DirectionalLight(0xffffff, 4); // (color, intensity)
-bottomLight.position.set(0, -500, 0); // directly below the scene
-lights.push(bottomLight);
+const topLight = new THREE.DirectionalLight(0xffffff, 1);
+topLight.position.set(0, 1, 0);
+scene.add(topLight);
 
-// Left Light
-const leftLight = new THREE.DirectionalLight(0xffffff, 4); // (color, intensity)
-leftLight.position.set(-500, 0, 0); // left side of the scene
-lights.push(leftLight);
+const bottomLight = new THREE.DirectionalLight(0xffffff, 1);
+bottomLight.position.set(0, -1, 0);
+scene.add(bottomLight);
 
-// Right Light
-const rightLight = new THREE.DirectionalLight(0xffffff, 4); // (color, intensity)
-rightLight.position.set(500, 0, 0); // right side of the scene
-lights.push(rightLight);
+const leftLight = new THREE.DirectionalLight(0xffffff, 1);
+leftLight.position.set(-1, 0, 0);
+scene.add(leftLight);
 
-// Add lights to the scene
-lights.forEach(light => {
-  scene.add(light);
-});
-
-// Set up a single light to cast shadows
-const shadowLight = lights[0];
-lights.slice(1).forEach(light => {
-  light.castShadow = false; // disable shadow casting for the remaining lights
-});
-
+const rightLight = new THREE.DirectionalLight(0xffffff, 1);
+rightLight.position.set(1, 0, 0);
+scene.add(rightLight);
 
 
 
