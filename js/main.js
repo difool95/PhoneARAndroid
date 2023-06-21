@@ -110,8 +110,8 @@ const ballGeometry = new THREE.SphereGeometry( 0.175, 32, 32 );
 
 						const ballMaterial = new THREE.MeshStandardMaterial( {
 							color: 0xdddddd,
-							roughness: 1,
-							metalness: 0
+							roughness: i / rows,
+							metalness: j / cols
 						} );
 						/*const ballMaterial = new THREE.MeshPhysicalMaterial( {
 					color: 0x000000,
