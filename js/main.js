@@ -66,7 +66,16 @@ rgbeloader.load('media/hdr/background.hdr', function(texture){
       // If the file is loaded, add it to the scene
       model = gltf.scene;
       model.visible = false;
+      model.traverse(function (object) {
+  	if (object.isMesh) {
+    	// The object is a mesh, so we can access its materials
+    	object.material.forEach(function (material, index) {
+      	console.log('Material', index + 1, ':', material);
+    	});
+  	}
+	});
       scene.add(model);
+      
     },
     function (xhr) {
       // While it is loading, log the progress
