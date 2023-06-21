@@ -5,6 +5,8 @@ import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/js
 // To allow for importing the .gltf file
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 
+import { RGBELoader  } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js";
+
 import { ARButton } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/webxr/ARButton.js";
 let scene, camera, renderer, controls;
 let reticle, model;
