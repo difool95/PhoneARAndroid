@@ -69,7 +69,7 @@ rgbeloader.load('media/hdr/background.hdr', function(texture){
       model.traverse(function (object) {
   	if (object.isMesh) {
     	// The object is a mesh, so we can access its materials
-    	object.material.forEach(function (material, index) {
+    	object.materials.forEach(function (material, index) {
       	console.log('Material', index + 1, ':', material);
     	});
   	}
