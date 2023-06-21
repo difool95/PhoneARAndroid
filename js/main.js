@@ -89,7 +89,7 @@ lights.slice(1).forEach(light => {
 const loader = new RGBELoader();
 loader.load(hdrTextureURL, function(texture){
   scene.background = texture;
-}
+});
 
   
   addReticleToScene(); //circular visual aid
