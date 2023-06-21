@@ -12,6 +12,8 @@ let scene, camera, renderer, controls;
 let reticle, model;
 let hitTestSourceRequested = false;
 let hitTestSource = null;
+let defaultEnvironment;
+
 init();
 animate();
 
@@ -49,6 +51,7 @@ function init() {
 				const xrLight = new XREstimatedLight( renderer );
 
 				xrLight.addEventListener( 'estimationstart', () => {
+					console.log('estimationstart');
 
 					// Swap the default light out for the estimated one one we start getting some estimated values.
 					scene.add( xrLight );
@@ -64,7 +67,7 @@ function init() {
 				} );
 
 				xrLight.addEventListener( 'estimationend', () => {
-
+					console.log('estimationend');
 					// Swap the lights back when we stop receiving estimated values.
 					scene.add( defaultLight );
 					scene.remove( xrLight );
@@ -80,8 +83,9 @@ renderer.toneMappingExposure = 1.8;
 const rgbeloader = new RGBELoader();
 rgbeloader.load('media/hdr/background.hdr', function(texture){
   texture.mapping = THREE.EquirectangularReflectionMapping;
-  //scene.background = texture;
-  scene.environment = texture;
+  defaultEnvironment = texture;
+  scene.environment = defaultEnvironment;
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
