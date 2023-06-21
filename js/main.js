@@ -35,62 +35,23 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.xr.enabled = true;
+	renderer.setPixelRatio( window.devicePixelRatio );
+	renderer.useLegacyLights = false;
 
   // Add the renderer to the DOM
   document.body.appendChild(renderer.domElement);
   document.body.appendChild(ARButton.createButton(renderer,{
     requiredFeatures: ["hit-test"]
   }));
-
-
-  // Set up the AR reticle
-  /*reticle = new THREE.Mesh(
-    new THREE.RingBufferGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2),
-    new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true })
-  );
-  reticle.matrixAutoUpdate = false;
-  reticle.visible = false;
-  scene.add(reticle);*/
-  // Add lights to the scene, so we can actually see the 3D model
-const lights = [];
-
-// Top Light
-const topLight = new THREE.DirectionalLight(0xffffff, 2); // (color, intensity)
-topLight.position.set(0, 500, 0); // directly above the scene
-topLight.castShadow = true;
-lights.push(topLight);
-
-// Bottom Light
-const bottomLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
-bottomLight.position.set(0, -500, 0); // directly below the scene
-lights.push(bottomLight);
-
-// Left Light
-const leftLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
-leftLight.position.set(-500, 0, 0); // left side of the scene
-lights.push(leftLight);
-
-// Right Light
-const rightLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
-rightLight.position.set(500, 0, 0); // right side of the scene
-lights.push(rightLight);
-
-// Add lights to the scene
-lights.forEach(light => {
-  scene.add(light);
-});
-const ambientLight = new THREE.AmbientLight(0x333333, 4);
-scene.add(ambientLight);
-// Set up a single light to cast shadows
-const shadowLight = lights[0];
-lights.slice(1).forEach(light => {
-  light.castShadow = false; // disable shadow casting for the remaining lights
-});
-
+  
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.8;
 const rgbeloader = new RGBELoader();
 rgbeloader.load('media/hdr/background.hdr', function(texture){
   texture.mapping = THREE.EquirectangularReflectionMapping;
-  scene.background = texture;
+  //scene.background = texture;
+  scene.environment = texture;
 });
 
   
