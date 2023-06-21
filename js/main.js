@@ -6,7 +6,7 @@ import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/js
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 
 import { ARButton } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/webxr/ARButton.js";
-
+import {RGBELoader} from "https://cdn.jsdelivr.net/npm/three@0.129.0/examples/js/loaders/RGBELoader.js";
 let scene, camera, renderer, controls;
 let reticle, model;
 let hitTestSourceRequested = false;
@@ -85,6 +85,13 @@ const shadowLight = lights[0];
 lights.slice(1).forEach(light => {
   light.castShadow = false; // disable shadow casting for the remaining lights
 });
+
+const loader = new RGBELoader();
+loader.load(hdrTextureURL, function(texture){
+  scene.background = texture;
+}
+
+  
   addReticleToScene(); //circular visual aid
   // Instantiate a loader for the .gltf file
   const loader = new GLTFLoader();
