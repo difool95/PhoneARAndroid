@@ -6,12 +6,11 @@ import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/js
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 
 import { ARButton } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/webxr/ARButton.js";
-import {RGBELoader} from "https://cdn.jsdelivr.net/npm/three@0.129.0/examples/js/loaders/RGBELoader.js";
 let scene, camera, renderer, controls;
 let reticle, model;
 let hitTestSourceRequested = false;
 let hitTestSource = null;
-const hdrTextureURL = new URL('media/image/hdr/background.hdr');
+//const hdrTextureURL = new URL('media/image/hdr/background.hdr');
 init();
 animate();
 
@@ -87,7 +86,7 @@ lights.slice(1).forEach(light => {
 });
 
 const rgbeloader = new RGBELoader();
-rgbeloader.load(hdrTextureURL, function(texture){
+rgbeloader.load('media/image/hdr/background.hdr', function(texture){
   scene.background = texture;
 });
 
