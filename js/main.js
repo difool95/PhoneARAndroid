@@ -205,4 +205,5 @@ function addReticleToScene(){
   reticle.matrixAutoUpdate = false;
   reticle.visible = false;
   scene.add(reticle);
+  console.log(scene);
 }
