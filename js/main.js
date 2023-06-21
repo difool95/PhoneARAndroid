@@ -44,9 +44,9 @@ function init() {
     requiredFeatures: ["hit-test"]
   }));
   
-//renderer.outputEncoding = THREE.sRGBEncoding;
-//renderer.toneMapping = THREE.ACESFilmicToneMapping;
-//renderer.toneMappingExposure = 1.8;
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.8;
 const rgbeloader = new RGBELoader();
 rgbeloader.load('media/hdr/background.hdr', function(texture){
   texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -54,6 +54,42 @@ rgbeloader.load('media/hdr/background.hdr', function(texture){
   scene.environment = texture;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+});
+
+  
+  addReticleToScene(); //circular visual aid
+const ballGeometry = new THREE.SphereGeometry( 0.175, 32, 32 );
+				const ballGroup = new THREE.Group();
+				ballGroup.position.z = - 2;
+
+				const rows = 3;
+				const cols = 3;
+
+				for ( let i = 0; i < rows; i ++ ) {
+
+					for ( let j = 0; j < cols; j ++ ) {
+
+						const ballMaterial = new THREE.MeshStandardMaterial( {
+							color: 0xdddddd,
+							roughness: i / rows,
+							metalness: j / cols
+						} );
+						const ballMesh = new THREE.Mesh( ballGeometry, ballMaterial );
+						ballMesh.position.set( ( i + 0.5 - rows * 0.5 ) * 0.4, ( j + 0.5 - cols * 0.5 ) * 0.4, 0 );
+						ballGroup.add( ballMesh );
+
+					}
+
+				}
+
+				scene.add( ballGroup );
+	
+  // Instantiate a loader for the .gltf file
+  /*const loader = new GLTFLoader();
 	 // Load the GLTF file
   loader.load(
     `models/phone/phone.gltf`,
@@ -72,17 +108,7 @@ rgbeloader.load('media/hdr/background.hdr', function(texture){
       // If there is an error, log it
       console.error(error);
     }
-  );
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	
-});
-
-  
-  addReticleToScene(); //circular visual aid
-  // Instantiate a loader for the .gltf file
-  const loader = new GLTFLoader();
-
+  );*/
  
   let controller = renderer.xr.getController(0);
   controller.addEventListener('select', onSelect);
