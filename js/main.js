@@ -97,48 +97,9 @@ rgbeloader.load('media/hdr/background.hdr', function(texture){
 
   
   addReticleToScene(); //circular visual aid
-const ballGeometry = new THREE.SphereGeometry( 0.175, 32, 32 );
-				const ballGroup = new THREE.Group();
-				ballGroup.position.z = - 2;
-
-				const rows = 3;
-				const cols = 3;
-
-				for ( let i = 0; i < rows; i ++ ) {
-
-					for ( let j = 0; j < cols; j ++ ) {
-
-						const ballMaterial = new THREE.MeshStandardMaterial( {
-							color: 0xdddddd,
-							roughness: i / rows,
-							metalness: j / cols
-						} );
-						/*const ballMaterial = new THREE.MeshPhysicalMaterial( {
-					color: 0x000000,
-					metalness: 0,
-					roughness: 0,
-					alphaTest: 0.5,
-					envMap:hdrCubeRenderTarget.texture,
-					envMapIntensity: 1,
-					depthWrite: false,
-					transmission: 0.5, 
-					opacity: 1,    
-					reflectivity:1,
-					clearcoat:1,                  
-					transparent: true
-				} );*/
-						const ballMesh = new THREE.Mesh( ballGeometry, ballMaterial );
-						ballMesh.position.set( ( i + 0.5 - rows * 0.5 ) * 0.4, ( j + 0.5 - cols * 0.5 ) * 0.4, 0 );
-						ballGroup.add( ballMesh );
-
-					}
-
-				}
-
-				scene.add( ballGroup );
 	
   // Instantiate a loader for the .gltf file
-  /*const loader = new GLTFLoader();
+  const loader = new GLTFLoader();
 	 // Load the GLTF file
   loader.load(
     `models/phone/phone.gltf`,
@@ -157,7 +118,7 @@ const ballGeometry = new THREE.SphereGeometry( 0.175, 32, 32 );
       // If there is an error, log it
       console.error(error);
     }
-  );*/
+  );
  
   let controller = renderer.xr.getController(0);
   controller.addEventListener('select', onSelect);
