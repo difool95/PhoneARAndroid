@@ -9,7 +9,7 @@ import { ARButton } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/web
 
 let scene, camera, renderer, controls;
 let reticle, model;
-
+let hitTestSourceRequested, hitTestSource;
 init();
 animate();
 
@@ -35,16 +35,19 @@ function init() {
 
   // Add the renderer to the DOM
   document.body.appendChild(renderer.domElement);
-  document.body.appendChild(ARButton.createButton(renderer));
+  document.body.appendChild(ARButton.createButton(renderer,{
+    requiredFeatures: ["hit-test"]
+  }));
+
 
   // Set up the AR reticle
-  reticle = new THREE.Mesh(
+  /*reticle = new THREE.Mesh(
     new THREE.RingBufferGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2),
     new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true })
   );
   reticle.matrixAutoUpdate = false;
   reticle.visible = false;
-  scene.add(reticle);
+  scene.add(reticle);*/
   // Add lights to the scene, so we can actually see the 3D model
 const lights = [];
 
@@ -84,6 +87,7 @@ const shadowLight = lights[0];
 lights.slice(1).forEach(light => {
   light.castShadow = false; // disable shadow casting for the remaining lights
 });
+  addReticleToScene(); //circular visual aid
   // Instantiate a loader for the .gltf file
   const loader = new GLTFLoader();
 
@@ -93,7 +97,7 @@ lights.slice(1).forEach(light => {
     function (gltf) {
       // If the file is loaded, add it to the scene
       model = gltf.scene;
-      model.visible = true;
+      model.visible = false;
       scene.add(model);
     },
     function (xhr) {
@@ -105,6 +109,18 @@ lights.slice(1).forEach(light => {
       console.error(error);
     }
   );
+  let controller = renderer.getController(0);
+  controller.addEventListener('select', onSelect);
+  scene.add(controller);
+
+  function onSelect(){
+    if(reticle.visible){
+      model.setFromMatrixPosition(reticle.matrix);
+      model.name = "phone";
+      model.visible = true;
+    }
+  }
+  
 
   // Set up the AR session event listeners
   renderer.xr.addEventListener("sessionstart", function () {
@@ -146,6 +162,47 @@ function animate() {
   renderer.setAnimationLoop(render);
 }
 
-function render() {
+function render(timestamp, frame) {
+  if(frame){
+    const referenceSpace = renderer.xr.getReferenceSpace();
+    const session = renderer.xr.getSession();
+    if(hitTestSourceRequested === false){
+        session.requestReferenceSpace('viewer').then(referenceSpace=>{
+          session.requestHitTestSource({space : referenceSpace}).then(source => 
+            hitTestSource = source)
+          })
+          hitTestSourceRequested = true;
+          session.addEventListener("end", ()=>{
+            hitTestSourceRequested= false;
+            hitTestSource = null;
+          })
+        }
+        if(hitTestSource){
+          const hitTestResults = frame.getHitTestResults(hitTestSource);
+          if(hitTestResults.length > 0){
+            const hit = hitTestResults[0];
+            reticle.visible = true;
+            reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix)
+          }
+          else{
+              reticle.visible = false;
+          }
+        } 
+  }
+  console.log(scene.children);
+  scene.children.forEach(object=>{
+    if(object.name === "phone"){
+      object.rotation.y += 0.01
+    }
+  })
   renderer.render(scene, camera);
+}
+
+function addReticleToScene(){
+  const geometry = new THREE.RingBufferGeometry(0.15, 0.2, 32).rotateX(-Math.PI/2);
+  const material = new THREE.MeshBasicMaterial();
+  reticle = new THREE.Mesh(geometry, material);
+  reticle.matrixAutoUpdate = false;
+  reticle.visible = false;
+  scene.add(reticle);
 }
