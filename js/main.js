@@ -9,7 +9,8 @@ import { ARButton } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/web
 
 let scene, camera, renderer, controls;
 let reticle, model;
-let hitTestSourceRequested, hitTestSource;
+let hitTestSourceRequested = false;
+let hitTestSource = null;
 init();
 animate();
 
