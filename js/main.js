@@ -135,7 +135,7 @@ lights.slice(1).forEach(light => {
   // Add a listener to the window, so we can resize the window and the camera
   window.addEventListener("resize", function () {
     camera.aspect = window.innerWidth / window.innerHeight;
-    //camera.updateProjectionMatrix();
+    camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
 
