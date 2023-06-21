@@ -7,6 +7,8 @@ import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/l
 
 import { RGBELoader  } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js";
 
+import { XREstimatedLight } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/webxr/XREstimatedLight.js';
+
 import { ARButton } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/webxr/ARButton.js";
 let scene, camera, renderer, controls;
 let reticle, model;
@@ -35,15 +37,46 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.xr.enabled = true;
-	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.useLegacyLights = false;
+  renderer.setPixelRatio( window.devicePixelRatio );
+  renderer.useLegacyLights = false;
 
   // Add the renderer to the DOM
   document.body.appendChild(renderer.domElement);
   document.body.appendChild(ARButton.createButton(renderer,{
     requiredFeatures: ["hit-test"]
   }));
-  
+///////////////////////////////////////////////////////////////
+// Don't add the XREstimatedLight to the scene initially.
+				// It doesn't have any estimated lighting values until an AR session starts.
+
+				const xrLight = new XREstimatedLight( renderer );
+
+				xrLight.addEventListener( 'estimationstart', () => {
+
+					// Swap the default light out for the estimated one one we start getting some estimated values.
+					scene.add( xrLight );
+					scene.remove( defaultLight );
+
+					// The estimated lighting also provides an environment cubemap, which we can apply here.
+					if ( xrLight.environment ) {
+
+						scene.environment = xrLight.environment;
+
+					}
+
+				} );
+
+				xrLight.addEventListener( 'estimationend', () => {
+
+					// Swap the lights back when we stop receiving estimated values.
+					scene.add( defaultLight );
+					scene.remove( xrLight );
+
+					// Revert back to the default environment.
+					scene.environment = defaultEnvironment;
+
+				} );
+///////////////////////////////////////////////////////////////
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.8;
