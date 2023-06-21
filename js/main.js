@@ -1,7 +1,5 @@
 //Import the THREE.js library
 import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
-// To allow for the camera to move around the scene
-import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
 // To allow for importing the .gltf file
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 
@@ -14,7 +12,6 @@ let scene, camera, renderer, controls;
 let reticle, model;
 let hitTestSourceRequested = false;
 let hitTestSource = null;
-//const hdrTextureURL = new URL('media/image/hdr/background.hdr');
 init();
 animate();
 
@@ -43,7 +40,7 @@ function init() {
   // Add the renderer to the DOM
   document.body.appendChild(renderer.domElement);
   document.body.appendChild(ARButton.createButton(renderer,{
-    requiredFeatures: ["hit-test"]
+    requiredFeatures: ["hit-test"], optionalFeatures: [ "light-estimation" ]
   }));
 ///////////////////////////////////////////////////////////////
 // Don't add the XREstimatedLight to the scene initially.
