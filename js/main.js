@@ -89,6 +89,7 @@ lights.slice(1).forEach(light => {
 
 const rgbeloader = new RGBELoader();
 rgbeloader.load('media/hdr/background.hdr', function(texture){
+  texture.mapping = THREE.EquirectangularReflectionMapping;
   scene.background = texture;
 });
 
