@@ -181,6 +181,7 @@ function render(timestamp, frame) {
           const hitTestResults = frame.getHitTestResults(hitTestSource);
           if(hitTestResults.length > 0){
             const hit = hitTestResults[0];
+            console.log(hit);
             reticle.visible = true;
             reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix)
           }
@@ -189,7 +190,6 @@ function render(timestamp, frame) {
           }
         } 
   }
-  console.log(scene.children);
   scene.children.forEach(object=>{
     if(object.name === "phone"){
       object.rotation.y += 0.01
