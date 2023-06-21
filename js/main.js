@@ -167,6 +167,7 @@ function render(timestamp, frame) {
     const referenceSpace = renderer.xr.getReferenceSpace();
     const session = renderer.xr.getSession();
     if(hitTestSourceRequested === false){
+      console.log("hey");
         session.requestReferenceSpace('viewer').then(referenceSpace=>{
           session.requestHitTestSource({space : referenceSpace}).then(source => 
             hitTestSource = source)
@@ -181,12 +182,10 @@ function render(timestamp, frame) {
           const hitTestResults = frame.getHitTestResults(hitTestSource);
           if(hitTestResults.length > 0){
             const hit = hitTestResults[0];
-            console.log(hit);
             reticle.visible = true;
             reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix)
           }
           else{
-              console.log("hola");
               reticle.visible = false;
           }
         } 
