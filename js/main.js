@@ -116,7 +116,7 @@ lights.slice(1).forEach(light => {
 
   function onSelect(){
     if(reticle.visible){
-      model.setFromMatrixPosition(reticle.matrix);
+      model.position.setFromMatrixPosition(reticle.matrix);
       model.name = "phone";
       model.visible = true;
     }
