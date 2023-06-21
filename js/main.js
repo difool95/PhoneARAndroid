@@ -88,7 +88,7 @@ lights.slice(1).forEach(light => {
 });
 
 const rgbeloader = new RGBELoader();
-rgbeloader.load('media/image/hdr/background.hdr', function(texture){
+rgbeloader.load('media/hdr/background.hdr', function(texture){
   scene.background = texture;
 });
 
