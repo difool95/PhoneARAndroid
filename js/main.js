@@ -38,15 +38,23 @@ function init() {
   renderer.xr.enabled = true;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.useLegacyLights = false;
+  // Get the loading container element
+  var loadingContainer = document.getElementById('loading-container');
+  // Create the <img> element
+  var loadingImage = document.createElement('img');
+  // Set the source (URL) of your loading GIF
+  loadingImage.src = 'models/loading/loading.gif';
+  // Append the <img> element to the container
+  loadingContainer.appendChild(loadingImage);
 
-  // Add the renderer to the DOM
-  document.body.appendChild(renderer.domElement);
   let options = {
     requiredFeatures: ["hit-test"],
     optionalFeatures: ["dom-overlay", "light-estimation"]
   }
   options.domOverlay = { root: document.getElementById('content') };
   document.body.appendChild(ARButton.createButton(renderer, options));
+  // Add the renderer to the DOM
+  document.body.appendChild(renderer.domElement);
   ///////////////////////////////////////////////////////////////
 
   const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
@@ -97,21 +105,12 @@ function init() {
 
 
   });
-  // Get the loading container element
-  var loadingContainer = document.getElementById('loading-container');
-  // Create the <img> element
-  var loadingImage = document.createElement('img');
-  // Set the source (URL) of your loading GIF
-  loadingImage.src = 'models/loading/loading.gif';
-  // Append the <img> element to the container
-  loadingContainer.appendChild(loadingImage);
+
 
   addReticleToScene(); //circular visual aid
 
   // Instantiate a loader for the .gltf file
   const loader = new GLTFLoader();
-  //Adding loading
-  loadingContainer.style.display = 'block';
 
   // Load the GLTF file
   loader.load(
@@ -151,6 +150,9 @@ function init() {
   // Set up the AR session event listeners
   renderer.xr.addEventListener("sessionstart", function () {
     //reticle.visible = true;
+    //Adding loading
+    loadingContainer.style.display = 'block';
+    console.log("started session");
   });
 
   renderer.xr.addEventListener("sessionend", function () {
