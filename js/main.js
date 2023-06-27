@@ -203,7 +203,7 @@ function render(timestamp, frame) {
   }
   scene.children.forEach(object=>{
     if(object.name === "phone"){
-      object.rotation.y += 0.01
+      //object.rotation.y += 0.01
     }
   })
   renderer.render(scene, camera);
