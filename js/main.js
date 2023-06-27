@@ -47,12 +47,13 @@ function init() {
   // Append the <img> element to the container
   loadingContainer.appendChild(loadingImage);
 
-  let options = {
+  document.body.appendChild(ARButton.createButton(renderer, {
     requiredFeatures: ["hit-test"],
-    optionalFeatures: ["dom-overlay", "light-estimation"]
-  }
-  options.domOverlay = { root: document.getElementById('content') };
-  document.body.appendChild(ARButton.createButton(renderer, options));
+    optionalFeatures: ['dom-overlay'],
+    domOverlay: { root: document.getElementById('content') }
+  }))
+  loadingContainer.style.display = 'none';
+
   // Add the renderer to the DOM
   document.body.appendChild(renderer.domElement);
   ///////////////////////////////////////////////////////////////
