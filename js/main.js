@@ -41,9 +41,12 @@ function init() {
 
   // Add the renderer to the DOM
   document.body.appendChild(renderer.domElement);
-  document.body.appendChild(ARButton.createButton(renderer, {
-    requiredFeatures: ["hit-test"], optionalFeatures: ["light-estimation"]
-  }));
+  let options = {
+    requiredFeatures: ["hit-test"],
+    optionalFeatures: ["dom-overlay", "light-estimation"]
+  }
+  options.domOverlay = { root: document.getElementById('content') };
+  document.body.appendChild(ARButton.createButton(renderer, options));
   ///////////////////////////////////////////////////////////////
 
   const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
