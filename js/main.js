@@ -99,7 +99,7 @@ function init() {
   // Create the <img> element
   var loadingImage = document.createElement('img');
   // Set the source (URL) of your loading GIF
-  loadingImage.src = '../media/loading.gif';
+  loadingImage.src = 'media/loading.gif';
   // Append the <img> element to the container
   loadingContainer.appendChild(loadingImage);
 
