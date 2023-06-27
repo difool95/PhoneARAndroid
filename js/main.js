@@ -102,7 +102,7 @@ rgbeloader.load('media/hdr/background.hdr', function(texture){
   const loader = new GLTFLoader();
 	 // Load the GLTF file
   loader.load(
-    `models/phone/phone.gltf`,
+    `models/building/building.gltf`,
     function (gltf) {
       // If the file is loaded, add it to the scene
       model = gltf.scene;
