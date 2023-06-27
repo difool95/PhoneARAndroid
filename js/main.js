@@ -114,7 +114,7 @@ function init() {
 
   // Load the GLTF file
   loader.load(
-    `models/building/building.gltf`,
+    `models/phone/phone.gltf`,
     function (gltf) {
       // If the file is loaded, add it to the scene
       model = gltf.scene;
