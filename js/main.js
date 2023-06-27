@@ -9,7 +9,8 @@ import { XREstimatedLight } from 'https://cdn.skypack.dev/three@0.129.0/examples
 
 import { ARButton } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/webxr/ARButton.js";
 let scene, camera, renderer, controls;
-let reticle, model;
+let reticle;
+let model = null;
 let hitTestSourceRequested = false;
 let hitTestSource = null;
 let defaultEnvironment;
@@ -112,7 +113,6 @@ function init() {
         scene.add(model);
         //Remove Loading
         loadingContainer.style.display = 'none';
-        addReticleToScene(); //circular visual aid
 
       },
       function (xhr) {
@@ -131,6 +131,7 @@ function init() {
 
 
 
+  addReticleToScene(); //circular visual aid
 
 
   let controller = renderer.xr.getController(0);
@@ -139,9 +140,11 @@ function init() {
 
   function onSelect() {
     if (reticle.visible) {
-      model.position.setFromMatrixPosition(reticle.matrix);
-      model.name = "phone";
-      model.visible = true;
+      if (model != null) {
+        model.position.setFromMatrixPosition(reticle.matrix);
+        model.name = "phone";
+        model.visible = true;
+      }
     }
   }
 
