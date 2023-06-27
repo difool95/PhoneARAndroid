@@ -3,7 +3,7 @@ import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module
 // To allow for importing the .gltf file
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 
-import { RGBELoader  } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js";
+import { RGBELoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js";
 
 import { XREstimatedLight } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/webxr/XREstimatedLight.js';
 
@@ -36,71 +36,81 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.xr.enabled = true;
-  renderer.setPixelRatio( window.devicePixelRatio );
+  renderer.setPixelRatio(window.devicePixelRatio);
   renderer.useLegacyLights = false;
 
   // Add the renderer to the DOM
   document.body.appendChild(renderer.domElement);
-  document.body.appendChild(ARButton.createButton(renderer,{
-    requiredFeatures: ["hit-test"], optionalFeatures: [ "light-estimation" ]
+  document.body.appendChild(ARButton.createButton(renderer, {
+    requiredFeatures: ["hit-test"], optionalFeatures: ["light-estimation"]
   }));
-///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
 
-	const defaultLight = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
-				defaultLight.position.set( 0.5, 1, 0.25 );
-				scene.add( defaultLight );
-// Don't add the XREstimatedLight to the scene initially.
-				// It doesn't have any estimated lighting values until an AR session starts.
+  const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+  defaultLight.position.set(0.5, 1, 0.25);
+  scene.add(defaultLight);
+  // Don't add the XREstimatedLight to the scene initially.
+  // It doesn't have any estimated lighting values until an AR session starts.
 
-				const xrLight = new XREstimatedLight( renderer );
+  const xrLight = new XREstimatedLight(renderer);
 
-				xrLight.addEventListener( 'estimationstart', () => {
-					console.log('estimationstart');
+  xrLight.addEventListener('estimationstart', () => {
+    console.log('estimationstart');
 
-					// Swap the default light out for the estimated one one we start getting some estimated values.
-					scene.add( xrLight );
-					scene.remove( defaultLight );
+    // Swap the default light out for the estimated one one we start getting some estimated values.
+    scene.add(xrLight);
+    scene.remove(defaultLight);
 
-					// The estimated lighting also provides an environment cubemap, which we can apply here.
-					if ( xrLight.environment ) {
-						scene.environment = xrLight.environment;
-					}
-				} );
+    // The estimated lighting also provides an environment cubemap, which we can apply here.
+    if (xrLight.environment) {
+      scene.environment = xrLight.environment;
+    }
+  });
 
-				xrLight.addEventListener( 'estimationend', () => {
-					console.log('estimationend');
-					// Swap the lights back when we stop receiving estimated values.
-					scene.add( defaultLight );
-					scene.remove( xrLight );
+  xrLight.addEventListener('estimationend', () => {
+    console.log('estimationend');
+    // Swap the lights back when we stop receiving estimated values.
+    scene.add(defaultLight);
+    scene.remove(xrLight);
 
-					// Revert back to the default environment.
-					scene.environment = defaultEnvironment;
+    // Revert back to the default environment.
+    scene.environment = defaultEnvironment;
 
-				} );
-///////////////////////////////////////////////////////////////
-renderer.outputEncoding = THREE.sRGBEncoding;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.8;
-const rgbeloader = new RGBELoader();
-rgbeloader.load('media/hdr/background.hdr', function(texture){
-  texture.mapping = THREE.EquirectangularReflectionMapping;
-  defaultEnvironment = texture;
-  scene.environment = defaultEnvironment;
+  });
+  ///////////////////////////////////////////////////////////////
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.8;
+  const rgbeloader = new RGBELoader();
+  rgbeloader.load('media/hdr/background.hdr', function (texture) {
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    defaultEnvironment = texture;
+    scene.environment = defaultEnvironment;
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	
-});
 
-  
+  });
+  // Get the loading container element
+  var loadingContainer = document.getElementById('loading-container');
+  // Create the <img> element
+  var loadingImage = document.createElement('img');
+  // Set the source (URL) of your loading GIF
+  loadingImage.src = '../media/loading.gif';
+  // Append the <img> element to the container
+  loadingContainer.appendChild(loadingImage);
+
   addReticleToScene(); //circular visual aid
-	
+
   // Instantiate a loader for the .gltf file
   const loader = new GLTFLoader();
-	 // Load the GLTF file
+  //Adding loading
+  loadingContainer.style.display = 'block';
+
+  // Load the GLTF file
   loader.load(
     `models/building/building.gltf`,
     function (gltf) {
@@ -108,7 +118,9 @@ rgbeloader.load('media/hdr/background.hdr', function(texture){
       model = gltf.scene;
       model.visible = false;
       scene.add(model);
-      
+      //Remove Loading
+      loadingContainer.style.display = 'none';
+
     },
     function (xhr) {
       // While it is loading, log the progress
@@ -119,19 +131,19 @@ rgbeloader.load('media/hdr/background.hdr', function(texture){
       console.error(error);
     }
   );
- 
+
   let controller = renderer.xr.getController(0);
   controller.addEventListener('select', onSelect);
   scene.add(controller);
 
-  function onSelect(){
-    if(reticle.visible){
+  function onSelect() {
+    if (reticle.visible) {
       model.position.setFromMatrixPosition(reticle.matrix);
       model.name = "phone";
       model.visible = true;
     }
   }
-  
+
 
   // Set up the AR session event listeners
   renderer.xr.addEventListener("sessionstart", function () {
@@ -151,22 +163,22 @@ rgbeloader.load('media/hdr/background.hdr', function(texture){
   });
 
   // Handle click events
- /* window.addEventListener("click", function () {
-    if (model.visible) {
-      model.visible = false;
-    } else {
-      const hitTestSource = renderer.xr.getHitTestSource();
-      const hitTestResults = renderer.xr.getHitTestResults(hitTestSource);
-
-      if (hitTestResults.length > 0) {
-        const hit = hitTestResults[0];
-        reticle.visible = false;
-        model.position.setFromMatrixPosition(hit.getPose().matrix);
-        //model.position.setFromMatrixPosition(hit.getPose(renderer.xr.getReferenceSpace()).transform.matrix);
-        model.visible = true;
-      }
-    }
-  });*/
+  /* window.addEventListener("click", function () {
+     if (model.visible) {
+       model.visible = false;
+     } else {
+       const hitTestSource = renderer.xr.getHitTestSource();
+       const hitTestResults = renderer.xr.getHitTestResults(hitTestSource);
+ 
+       if (hitTestResults.length > 0) {
+         const hit = hitTestResults[0];
+         reticle.visible = false;
+         model.position.setFromMatrixPosition(hit.getPose().matrix);
+         //model.position.setFromMatrixPosition(hit.getPose(renderer.xr.getReferenceSpace()).transform.matrix);
+         model.visible = true;
+       }
+     }
+   });*/
 }
 
 function animate() {
@@ -174,48 +186,46 @@ function animate() {
 }
 
 function render(timestamp, frame) {
-  if(frame){
+  if (frame) {
     const referenceSpace = renderer.xr.getReferenceSpace();
     const session = renderer.xr.getSession();
-    if(hitTestSourceRequested === false){
-      console.log("hey");
-        session.requestReferenceSpace('viewer').then(referenceSpace=>{
-          session.requestHitTestSource({space : referenceSpace}).then(source => 
-            hitTestSource = source)
-          })
-          hitTestSourceRequested = true;
-          session.addEventListener("end", ()=>{
-            hitTestSourceRequested= false;
-            hitTestSource = null;
-          })
-        }
-        if(hitTestSource){
-          const hitTestResults = frame.getHitTestResults(hitTestSource);
-          if(hitTestResults.length > 0){
-            const hit = hitTestResults[0];
-            reticle.visible = true;
-            reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix)
-          }
-          else{
-              reticle.visible = false;
-          }
-        } 
+    if (hitTestSourceRequested === false) {
+      session.requestReferenceSpace('viewer').then(referenceSpace => {
+        session.requestHitTestSource({ space: referenceSpace }).then(source =>
+          hitTestSource = source)
+      })
+      hitTestSourceRequested = true;
+      session.addEventListener("end", () => {
+        hitTestSourceRequested = false;
+        hitTestSource = null;
+      })
+    }
+    if (hitTestSource) {
+      const hitTestResults = frame.getHitTestResults(hitTestSource);
+      if (hitTestResults.length > 0) {
+        const hit = hitTestResults[0];
+        reticle.visible = true;
+        reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix)
+      }
+      else {
+        reticle.visible = false;
+      }
+    }
   }
-  scene.children.forEach(object=>{
-    if(object.name === "phone"){
+  scene.children.forEach(object => {
+    if (object.name === "phone") {
       //object.rotation.y += 0.01
     }
   })
   renderer.render(scene, camera);
 }
 
-function addReticleToScene(){
-  const geometry = new THREE.RingBufferGeometry(0.15, 0.2, 32).rotateX(-Math.PI/2);
-  const material = new THREE.MeshStandardMaterial({color : 0xffffff * Math.random() });
+function addReticleToScene() {
+  const geometry = new THREE.RingBufferGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2);
+  const material = new THREE.MeshStandardMaterial({ color: 0xffffff * Math.random() });
   reticle = new THREE.Mesh(geometry, material);
   reticle.name = "reticle";
   reticle.matrixAutoUpdate = false;
   reticle.visible = false;
   scene.add(reticle);
-  console.log(reticle);
 }
