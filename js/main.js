@@ -49,7 +49,7 @@ function init() {
 
   document.body.appendChild(ARButton.createButton(renderer, {
     requiredFeatures: ["hit-test"],
-    optionalFeatures: ['dom-overlay'],
+    optionalFeatures: ['dom-overlay', 'light-estimation'],
     domOverlay: { root: document.getElementById('content') }
   }))
 
