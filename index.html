@@ -13,14 +13,36 @@
 </head>
 
 <body>
+  <script type="text/javascript">
+    if (iOS()) {
+      var meta1 = document.createElement('meta');
+      meta1.httpEquiv = "content-type";
+      meta1.content = "text/html; charset=ISO-8859-1";
+      document.head.appendChild(meta1);
+    }
+    else {
+      var meta2 = document.createElement('meta');
+      meta2.name = "viewport";
+      meta2.content = "width=device-width, user-scalable=no";
+      document.head.appendChild(meta2);
+    }
+    function iOS() {
+      return [
+        'iPad Simulator',
+        'iPhone Simulator',
+        'iPod Simulator',
+        'iPad',
+        'iPhone',
+        'iPod'
+      ].includes(navigator.platform)
+        // iPad on iOS 13 detection
+        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+    }	
+  </script>
   <header>
     <h1>AR</h1>
     </h1>
   </header>
-
-  <main>
-
-  </main>
   <div id="content">
     <div id="loading-container"></div>
   </div>

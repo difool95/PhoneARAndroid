@@ -92,47 +92,46 @@ function init() {
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.8;
+  loadingContainer.style.display = 'block';
   const rgbeloader = new RGBELoader();
   rgbeloader.load('media/hdr/background.hdr', function (texture) {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     defaultEnvironment = texture;
     scene.environment = defaultEnvironment;
-
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Instantiate a loader for the .gltf file
+    const loader = new GLTFLoader();
+    loadingContainer.style.display = 'block';
+    // Load the GLTF file
+    loader.load(
+      `models/phone/phone.gltf`,
+      function (gltf) {
+        // If the file is loaded, add it to the scene
+        model = gltf.scene;
+        model.visible = false;
+        scene.add(model);
+        //Remove Loading
+        loadingContainer.style.display = 'none';
+        addReticleToScene(); //circular visual aid
 
+      },
+      function (xhr) {
+        // While it is loading, log the progress
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      },
+      function (error) {
+        // If there is an error, log it
+        console.error(error);
+      }
+    );
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
   });
 
 
-  addReticleToScene(); //circular visual aid
 
-  // Instantiate a loader for the .gltf file
-  const loader = new GLTFLoader();
 
-  // Load the GLTF file
-  loader.load(
-    `models/phone/phone.gltf`,
-    function (gltf) {
-      // If the file is loaded, add it to the scene
-      model = gltf.scene;
-      model.visible = false;
-      scene.add(model);
-      //Remove Loading
-      loadingContainer.style.display = 'none';
-
-    },
-    function (xhr) {
-      // While it is loading, log the progress
-      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    },
-    function (error) {
-      // If there is an error, log it
-      console.error(error);
-    }
-  );
 
   let controller = renderer.xr.getController(0);
   controller.addEventListener('select', onSelect);
@@ -150,8 +149,6 @@ function init() {
   // Set up the AR session event listeners
   renderer.xr.addEventListener("sessionstart", function () {
     //reticle.visible = true;
-    //Adding loading
-    loadingContainer.style.display = 'block';
     console.log("started session");
   });
 
