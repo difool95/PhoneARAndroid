@@ -9,8 +9,7 @@ import { XREstimatedLight } from 'https://cdn.skypack.dev/three@0.129.0/examples
 
 import { ARButton } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/webxr/ARButton.js";
 let scene, camera, renderer, controls;
-let reticle;
-let model = null;
+let reticle, model;
 let hitTestSourceRequested = false;
 let hitTestSource = null;
 let defaultEnvironment;
@@ -47,29 +46,19 @@ function init() {
   loadingImage.src = 'models/loading/loading.gif';
   // Append the <img> element to the container
   loadingContainer.appendChild(loadingImage);
-
-  document.body.appendChild(ARButton.createButton(renderer, {
-    requiredFeatures: ["hit-test"],
-    optionalFeatures: ['dom-overlay', 'light-estimation'],
-    domOverlay: { root: document.getElementById('content') }
-  }))
-
   // Add the renderer to the DOM
   document.body.appendChild(renderer.domElement);
-  ///////////////////////////////////////////////////////////////
 
-  /*const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+  document.body.appendChild(ARButton.createButton(renderer, {
+    requiredFeatures: ["hit-test"], optionalFeatures: ["light-estimation"]
+  }));
+
+  const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
   defaultLight.position.set(0.5, 1, 0.25);
-  scene.add(defaultLight);*/
-  // Create a directional light
-
-  //Add lights to the scene, so we can actually see the 3D model
-  const defaultLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
-  defaultLight.position.set(500, 500, 500) //top-left-ish
-  defaultLight.castShadow = true;
   scene.add(defaultLight);
   // Don't add the XREstimatedLight to the scene initially.
   // It doesn't have any estimated lighting values until an AR session starts.
+
 
   const xrLight = new XREstimatedLight(renderer);
 
@@ -83,7 +72,7 @@ function init() {
 
     // The estimated lighting also provides an environment cubemap, which we can apply here.
     if (xrLight.environment) {
-      //scene.environment = xrLight.environment;
+      scene.environment = xrLight.environment;
     }
   });
 
@@ -94,14 +83,13 @@ function init() {
     scene.remove(xrLight);
 
     // Revert back to the default environment.
-    //scene.environment = defaultEnvironment;
+    scene.environment = defaultEnvironment;
 
   });
   ///////////////////////////////////////////////////////////////
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.8;
-  loadingContainer.style.display = 'block';
   const rgbeloader = new RGBELoader();
   rgbeloader.load('media/hdr/background.hdr', function (texture) {
     texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -209,6 +197,7 @@ function render(timestamp, frame) {
     const referenceSpace = renderer.xr.getReferenceSpace();
     const session = renderer.xr.getSession();
     if (hitTestSourceRequested === false) {
+      console.log("hey");
       session.requestReferenceSpace('viewer').then(referenceSpace => {
         session.requestHitTestSource({ space: referenceSpace }).then(source =>
           hitTestSource = source)
@@ -247,4 +236,5 @@ function addReticleToScene() {
   reticle.matrixAutoUpdate = false;
   reticle.visible = false;
   scene.add(reticle);
+  console.log(reticle);
 }
