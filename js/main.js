@@ -58,33 +58,42 @@ function init() {
   document.body.appendChild(renderer.domElement);
   ///////////////////////////////////////////////////////////////
 
-  const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+  /*const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
   defaultLight.position.set(0.5, 1, 0.25);
+  scene.add(defaultLight);*/
+  // Create a directional light
+  const defaultLight = new THREE.DirectionalLight(0xffffff, 1);
+
+  // Set the direction of the light
+  defaultLight.position.set(1, 1, 1); // Set the direction to (1, 1, 1)
+
+  // Add the light to the scene
   scene.add(defaultLight);
+
   // Don't add the XREstimatedLight to the scene initially.
   // It doesn't have any estimated lighting values until an AR session starts.
 
   const xrLight = new XREstimatedLight(renderer);
 
-  /*
+
   xrLight.addEventListener('estimationstart', () => {
     console.log('estimationstart');
 
     // Swap the default light out for the estimated one one we start getting some estimated values.
-    scene.add(xrLight);
-    scene.remove(defaultLight);
+    //scene.add(xrLight);
+    //scene.remove(defaultLight);
 
     // The estimated lighting also provides an environment cubemap, which we can apply here.
     if (xrLight.environment) {
       scene.environment = xrLight.environment;
     }
-  });*/
+  });
 
   xrLight.addEventListener('estimationend', () => {
     console.log('estimationend');
     // Swap the lights back when we stop receiving estimated values.
-    scene.add(defaultLight);
-    scene.remove(xrLight);
+    //scene.add(defaultLight);
+    //scene.remove(xrLight);
 
     // Revert back to the default environment.
     scene.environment = defaultEnvironment;
@@ -106,7 +115,7 @@ function init() {
     loadingContainer.style.display = 'block';
     // Load the GLTF file
     loader.load(
-      `models/phone/phone.gltf`,
+      `models/arch/arch.gltf`,
       function (gltf) {
         // If the file is loaded, add it to the scene
         model = gltf.scene;
