@@ -92,7 +92,7 @@ function init() {
   ///////////////////////////////////////////////////////////////
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.5;
+  renderer.toneMappingExposure = 1.8;
   const rgbeloader = new RGBELoader();
   rgbeloader.load('media/hdr/background.hdr', function (texture) {
     texture.mapping = THREE.EquirectangularReflectionMapping;
