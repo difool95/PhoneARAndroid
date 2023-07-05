@@ -39,33 +39,7 @@
         || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Request a screen wake lock
-    const requestScreenWakeLock = async () => {
-      try {
-        const screenWakeLock = await navigator.wakeLock.request('screen');
-        console.log('Screen wake lock engaged!');
-      } catch (error) {
-        console.error(`Failed to request screen wake lock: ${error}`);
-      }
-    };
-
-    // Release the screen wake lock
-    const releaseScreenWakeLock = () => {
-      if (screenWakeLock) {
-        screenWakeLock.release();
-        console.log('Screen wake lock released!');
-      }
-    };
-
-    // Request the screen wake lock when the page is loaded
-    window.addEventListener('DOMContentLoaded', () => {
-      requestScreenWakeLock();
-    });
-
-    // Release the screen wake lock when the page is unloaded
-    window.addEventListener('beforeunload', () => {
-      releaseScreenWakeLock();
-    });
+    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   </script>
   <header>

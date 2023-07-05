@@ -105,7 +105,7 @@ function init() {
     loadingContainer.style.display = 'block';
     // Load the GLTF file
     loader.load(
-      `models/building/building.gltf`,
+      `models/arch/arch.gltf`,
       function (gltf) {
         // If the file is loaded, add it to the scene
         model = gltf.scene;
@@ -152,7 +152,6 @@ function init() {
   // Set up the AR session event listeners
   renderer.xr.addEventListener("sessionstart", function () {
     //reticle.visible = true;
-    console.log("started session");
   });
 
   renderer.xr.addEventListener("sessionend", function () {
