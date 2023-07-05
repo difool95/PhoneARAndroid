@@ -124,9 +124,7 @@ function init() {
         model.traverse(function (object) {
           if (object instanceof THREE.Mesh) {
             // Access the materials of each mesh
-            object.material.forEach(function (material) {
-              console.log(material);
-            });
+            console.log(object);
           }
         });
         scene.add(model);
