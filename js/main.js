@@ -33,11 +33,11 @@ function init() {
   camera.position.set(0, 0, 0.1);
 
   // Create a WebGL renderer
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer = new THREE.WebGLRenderer({ alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.xr.enabled = true;
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.useLegacyLights = false;
+  //renderer.setPixelRatio(window.devicePixelRatio);
+  //renderer.useLegacyLights = false;
   // Get the loading container element
   var loadingContainer = document.getElementById('loading-container');
   // Create the <img> element
@@ -47,7 +47,9 @@ function init() {
   // Append the <img> element to the container
   loadingContainer.appendChild(loadingImage);
   // Add the renderer to the DOM
-  document.body.appendChild(renderer.domElement);
+  //document.body.appendChild(renderer.domElement);
+  //Add the renderer to the DOM
+  document.getElementById("container3D").appendChild(renderer.domElement);
 
   document.body.appendChild(ARButton.createButton(renderer, {
     requiredFeatures: ["hit-test"], optionalFeatures: ["light-estimation"]
@@ -58,7 +60,8 @@ function init() {
   //scene.add(defaultLight);
   // Don't add the XREstimatedLight to the scene initially.
   // It doesn't have any estimated lighting values until an AR session starts.
-
+  const ambientLight = new THREE.AmbientLight(0x333333, 2);
+  scene.add(ambientLight);
 
   const xrLight = new XREstimatedLight(renderer);
 
