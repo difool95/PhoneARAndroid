@@ -55,13 +55,13 @@ function init() {
     domOverlay: { root: document.getElementById('content') }
   }));
 
-  //const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
-  //defaultLight.position.set(0.5, 1, 0.25);
-  //scene.add(defaultLight);
+  const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+  defaultLight.position.set(0.5, 1, 0.25);
+  scene.add(defaultLight);
   // Don't add the XREstimatedLight to the scene initially.
   // It doesn't have any estimated lighting values until an AR session starts.
-  const ambientLight = new THREE.AmbientLight(0x333333, 2);
-  scene.add(ambientLight);
+  //const ambientLight = new THREE.AmbientLight(0x333333, 2);
+  //scene.add(ambientLight);
 
   const xrLight = new XREstimatedLight(renderer);
 
@@ -104,7 +104,7 @@ function init() {
     loadingContainer.style.display = 'block';
     // Load the GLTF file
     loader.load(
-      `models/phone/phone.gltf`,
+      `models/arch/arch.gltf`,
       function (gltf) {
         // If the file is loaded, add it to the scene
         model = gltf.scene;
