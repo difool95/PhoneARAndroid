@@ -37,34 +37,71 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.xr.enabled = true;
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.useLegacyLights = false;
   // Get the loading container element
-  //var loadingContainer = document.getElementById('loading-container');
+  var loadingContainer = document.getElementById('loading-container');
   // Create the <img> element
+  var loadingImage = document.createElement('img');
   // Set the source (URL) of your loading GIF
+  loadingImage.src = 'models/loading/loading.gif';
   // Append the <img> element to the container
-  //loadingContainer.appendChild(loadingImage);
+  loadingContainer.appendChild(loadingImage);
 
   document.body.appendChild(ARButton.createButton(renderer, {
-    requiredFeatures: ["hit-test"]
+    requiredFeatures: ["hit-test"],
+    optionalFeatures: ['dom-overlay', 'light-estimation'],
+    domOverlay: { root: document.getElementById('content') }
   }))
 
   // Add the renderer to the DOM
   document.body.appendChild(renderer.domElement);
   ///////////////////////////////////////////////////////////////
 
-  const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+  /*const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
   defaultLight.position.set(0.5, 1, 0.25);
-  scene.add(defaultLight);
+  scene.add(defaultLight);*/
   // Create a directional light
 
-
-
+  //Add lights to the scene, so we can actually see the 3D model
+  const defaultLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
+  defaultLight.position.set(500, 500, 500) //top-left-ish
+  defaultLight.castShadow = true;
+  scene.add(defaultLight);
   // Don't add the XREstimatedLight to the scene initially.
   // It doesn't have any estimated lighting values until an AR session starts.
 
   const xrLight = new XREstimatedLight(renderer);
 
+
+  xrLight.addEventListener('estimationstart', () => {
+    console.log('estimationstart');
+
+    // Swap the default light out for the estimated one one we start getting some estimated values.
+    scene.add(xrLight);
+    scene.remove(defaultLight);
+
+    // The estimated lighting also provides an environment cubemap, which we can apply here.
+    if (xrLight.environment) {
+      //scene.environment = xrLight.environment;
+    }
+  });
+
+  xrLight.addEventListener('estimationend', () => {
+    console.log('estimationend');
+    // Swap the lights back when we stop receiving estimated values.
+    scene.add(defaultLight);
+    scene.remove(xrLight);
+
+    // Revert back to the default environment.
+    //scene.environment = defaultEnvironment;
+
+  });
   ///////////////////////////////////////////////////////////////
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.8;
+  loadingContainer.style.display = 'block';
   const rgbeloader = new RGBELoader();
   rgbeloader.load('media/hdr/background.hdr', function (texture) {
     texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -73,7 +110,7 @@ function init() {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Instantiate a loader for the .gltf file
     const loader = new GLTFLoader();
-    //loadingContainer.style.display = 'block';
+    loadingContainer.style.display = 'block';
     // Load the GLTF file
     loader.load(
       `models/phone/phone.gltf`,
@@ -90,7 +127,7 @@ function init() {
         });
         scene.add(model);
         //Remove Loading
-        //loadingContainer.style.display = 'none';
+        loadingContainer.style.display = 'none';
 
       },
       function (xhr) {
