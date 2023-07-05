@@ -33,11 +33,11 @@ function init() {
   camera.position.set(0, 0, 0.1);
 
   // Create a WebGL renderer
-  renderer = new THREE.WebGLRenderer({ alpha: true });
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.xr.enabled = true;
-  //renderer.setPixelRatio(window.devicePixelRatio);
-  //renderer.useLegacyLights = false;
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.useLegacyLights = false;
   // Get the loading container element
   var loadingContainer = document.getElementById('loading-container');
   // Create the <img> element
@@ -47,12 +47,12 @@ function init() {
   // Append the <img> element to the container
   loadingContainer.appendChild(loadingImage);
   // Add the renderer to the DOM
-  //document.body.appendChild(renderer.domElement);
+  document.body.appendChild(renderer.domElement);
   //Add the renderer to the DOM
-  document.getElementById("container3D").appendChild(renderer.domElement);
-
   document.body.appendChild(ARButton.createButton(renderer, {
-    requiredFeatures: ["hit-test"], optionalFeatures: ["light-estimation"]
+    requiredFeatures: ["hit-test"],
+    optionalFeatures: ['dom-overlay', 'light-estimation'],
+    domOverlay: { root: document.getElementById('content') }
   }));
 
   //const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
@@ -70,29 +70,29 @@ function init() {
     console.log('estimationstart');
 
     // Swap the default light out for the estimated one one we start getting some estimated values.
-    //scene.add(xrLight);
-    //scene.remove(defaultLight);
+    scene.add(xrLight);
+    scene.remove(defaultLight);
 
     // The estimated lighting also provides an environment cubemap, which we can apply here.
     if (xrLight.environment) {
-      //scene.environment = xrLight.environment;
+      scene.environment = xrLight.environment;
     }
   });
 
   xrLight.addEventListener('estimationend', () => {
     console.log('estimationend');
     // Swap the lights back when we stop receiving estimated values.
-    //scene.add(defaultLight);
-    //scene.remove(xrLight);
+    scene.add(defaultLight);
+    scene.remove(xrLight);
 
     // Revert back to the default environment.
-    //scene.environment = defaultEnvironment;
+    scene.environment = defaultEnvironment;
 
   });
   ///////////////////////////////////////////////////////////////
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.8;
+  renderer.toneMappingExposure = 0.5;
   const rgbeloader = new RGBELoader();
   rgbeloader.load('media/hdr/background.hdr', function (texture) {
     texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -112,7 +112,6 @@ function init() {
         scene.add(model);
         //Remove Loading
         loadingContainer.style.display = 'none';
-
       },
       function (xhr) {
         // While it is loading, log the progress
@@ -127,12 +126,7 @@ function init() {
 
 
   });
-
-
-
   addReticleToScene(); //circular visual aid
-
-
   let controller = renderer.xr.getController(0);
   controller.addEventListener('select', onSelect);
   scene.add(controller);
@@ -193,7 +187,6 @@ function render(timestamp, frame) {
     const referenceSpace = renderer.xr.getReferenceSpace();
     const session = renderer.xr.getSession();
     if (hitTestSourceRequested === false) {
-      console.log("hey");
       session.requestReferenceSpace('viewer').then(referenceSpace => {
         session.requestHitTestSource({ space: referenceSpace }).then(source =>
           hitTestSource = source)

@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
   background-color: #000;
-  /*  touch-action: none;*/
+  touch-action: none;
 }
 
 header {
@@ -24,7 +24,7 @@ header h1 {
   left: 0;
 }
 
-/*#loading-container {
+#loading-container {
   position: absolute;
   top: 40vh;
   left: 43vw;
@@ -33,4 +33,4 @@ header h1 {
   background-color: rgba(255, 255, 255, 0);
   justify-content: center;
   align-items: center;
-}*/
+}
