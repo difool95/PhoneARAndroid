@@ -70,8 +70,8 @@ function init() {
     console.log('estimationstart');
 
     // Swap the default light out for the estimated one one we start getting some estimated values.
-    scene.add(xrLight);
-    scene.remove(defaultLight);
+    //scene.add(xrLight);
+    //scene.remove(defaultLight);
 
     // The estimated lighting also provides an environment cubemap, which we can apply here.
     if (xrLight.environment) {
