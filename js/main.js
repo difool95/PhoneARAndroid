@@ -62,7 +62,7 @@ function init() {
   defaultLight.position.set(0.5, 1, 0.25);
   scene.add(defaultLight);*/
   // Create a directional light
-  const defaultLight = new THREE.DirectionalLight(0xffffff, 1);
+  const defaultLight = new THREE.DirectionalLight(0xffffff, 4);
 
   // Set the direction of the light
   defaultLight.position.set(1, 1, 1); // Set the direction to (1, 1, 1)
@@ -120,6 +120,15 @@ function init() {
         // If the file is loaded, add it to the scene
         model = gltf.scene;
         model.visible = false;
+        // Traverse the model's object hierarchy
+        model.traverse(function (object) {
+          if (object instanceof THREE.Mesh) {
+            // Access the materials of each mesh
+            object.material.forEach(function (material) {
+              console.log(material);
+            });
+          }
+        });
         scene.add(model);
         //Remove Loading
         loadingContainer.style.display = 'none';
