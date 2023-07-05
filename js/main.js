@@ -53,9 +53,9 @@ function init() {
     requiredFeatures: ["hit-test"], optionalFeatures: ["light-estimation"]
   }));
 
-  const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
-  defaultLight.position.set(0.5, 1, 0.25);
-  scene.add(defaultLight);
+  //const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+  //defaultLight.position.set(0.5, 1, 0.25);
+  //scene.add(defaultLight);
   // Don't add the XREstimatedLight to the scene initially.
   // It doesn't have any estimated lighting values until an AR session starts.
 
@@ -67,23 +67,23 @@ function init() {
     console.log('estimationstart');
 
     // Swap the default light out for the estimated one one we start getting some estimated values.
-    scene.add(xrLight);
-    scene.remove(defaultLight);
+    //scene.add(xrLight);
+    //scene.remove(defaultLight);
 
     // The estimated lighting also provides an environment cubemap, which we can apply here.
     if (xrLight.environment) {
-      scene.environment = xrLight.environment;
+      //scene.environment = xrLight.environment;
     }
   });
 
   xrLight.addEventListener('estimationend', () => {
     console.log('estimationend');
     // Swap the lights back when we stop receiving estimated values.
-    scene.add(defaultLight);
-    scene.remove(xrLight);
+    //scene.add(defaultLight);
+    //scene.remove(xrLight);
 
     // Revert back to the default environment.
-    scene.environment = defaultEnvironment;
+    //scene.environment = defaultEnvironment;
 
   });
   ///////////////////////////////////////////////////////////////
@@ -106,13 +106,6 @@ function init() {
         // If the file is loaded, add it to the scene
         model = gltf.scene;
         model.visible = false;
-        // Traverse the model's object hierarchy
-        model.traverse(function (object) {
-          if (object instanceof THREE.Mesh) {
-            // Access the materials of each mesh
-            console.log(object);
-          }
-        });
         scene.add(model);
         //Remove Loading
         loadingContainer.style.display = 'none';
