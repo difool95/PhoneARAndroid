@@ -50,8 +50,7 @@ function init() {
 
   document.body.appendChild(ARButton.createButton(renderer, {
     requiredFeatures: ["hit-test"],
-    optionalFeatures: ['dom-overlay', 'light-estimation'],
-    domOverlay: { root: document.getElementById('content') }
+    optionalFeatures: ['light-estimation'],
   }))
 
   // Add the renderer to the DOM
@@ -70,8 +69,8 @@ function init() {
     console.log('estimationstart');
 
     // Swap the default light out for the estimated one one we start getting some estimated values.
-    //scene.add(xrLight);
-    //scene.remove(defaultLight);
+    scene.add(xrLight);
+    scene.remove(defaultLight);
 
     // The estimated lighting also provides an environment cubemap, which we can apply here.
     if (xrLight.environment) {
