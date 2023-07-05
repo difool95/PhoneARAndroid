@@ -106,7 +106,7 @@ function init() {
     loadingContainer.style.display = 'block';
     // Load the GLTF file
     loader.load(
-      `models/arch/arch.gltf`,
+      `models/phone/phone.gltf`,
       function (gltf) {
         // If the file is loaded, add it to the scene
         model = gltf.scene;
