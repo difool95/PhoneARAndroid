@@ -50,7 +50,8 @@ function init() {
 
   document.body.appendChild(ARButton.createButton(renderer, {
     requiredFeatures: ["hit-test"],
-    optionalFeatures: ['light-estimation'],
+    optionalFeatures: ['dom-overlay', 'light-estimation'],
+    domOverlay: { root: document.getElementById('content') }
   }))
 
   // Add the renderer to the DOM
@@ -65,6 +66,7 @@ function init() {
 
   const xrLight = new XREstimatedLight(renderer);
 
+  /*
   xrLight.addEventListener('estimationstart', () => {
     console.log('estimationstart');
 
@@ -76,7 +78,7 @@ function init() {
     if (xrLight.environment) {
       scene.environment = xrLight.environment;
     }
-  });
+  });*/
 
   xrLight.addEventListener('estimationend', () => {
     console.log('estimationend');
@@ -91,7 +93,7 @@ function init() {
   ///////////////////////////////////////////////////////////////
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1;
+  renderer.toneMappingExposure = 1.8;
   loadingContainer.style.display = 'block';
   const rgbeloader = new RGBELoader();
   rgbeloader.load('media/hdr/background.hdr', function (texture) {
