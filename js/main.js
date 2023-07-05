@@ -91,7 +91,7 @@ function init() {
   ///////////////////////////////////////////////////////////////
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.8;
+  renderer.toneMappingExposure = 1;
   loadingContainer.style.display = 'block';
   const rgbeloader = new RGBELoader();
   rgbeloader.load('media/hdr/background.hdr', function (texture) {
