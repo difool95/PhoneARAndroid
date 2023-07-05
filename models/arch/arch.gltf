@@ -952,7 +952,14 @@
             "doubleSided" : true,
             "name" : "blanc_001_Wall_Entity_Material",
             "pbrMetallicRoughness" : {
-                "metallicFactor" : 0
+                "baseColorFactor" : [
+                    1,
+                    0.9786862134933472,
+                    0.9163454174995422,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0
             }
         },
         {
