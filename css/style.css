@@ -35,7 +35,6 @@ header h1 {
   align-items: center;
 }
 
-
 /* Styling for the loading panel */
 #loading-panel {
   position: fixed;
@@ -48,6 +47,16 @@ header h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.loading-container {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #loading-spinner {
