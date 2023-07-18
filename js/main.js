@@ -39,13 +39,13 @@ function init() {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.useLegacyLights = false;
   // Get the loading container element
-  var loadingContainer = document.getElementById('loading-container');
+  var loadingContainer = document.getElementById('loading-panel');
   // Create the <img> element
-  var loadingImage = document.createElement('img');
+  //var loadingImage = document.createElement('img');
   // Set the source (URL) of your loading GIF
-  loadingImage.src = 'models/loading/loading.gif';
+  //loadingImage.src = 'models/loading/loading.gif';
   // Append the <img> element to the container
-  loadingContainer.appendChild(loadingImage);
+  //loadingContainer.appendChild(loadingImage);
   // Add the renderer to the DOM
   document.body.appendChild(renderer.domElement);
   //Add the renderer to the DOM
@@ -101,7 +101,7 @@ function init() {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Instantiate a loader for the .gltf file
     const loader = new GLTFLoader();
-    loadingContainer.style.display = 'block';
+    loadingContainer.style.display = 'flex';
     // Load the GLTF file
     loader.load(
       `models/arch/arch.gltf`,
@@ -225,5 +225,4 @@ function addReticleToScene() {
   reticle.matrixAutoUpdate = false;
   reticle.visible = false;
   scene.add(reticle);
-  console.log(reticle);
 }
