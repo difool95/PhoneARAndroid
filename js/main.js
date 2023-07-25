@@ -14,6 +14,8 @@ let hitTestSourceRequested = false;
 let hitTestSource = null;
 let defaultEnvironment;
 let scanContainer = document.getElementById('scan-ground-panel');
+let scaleStartDistance = 0;
+let scaleStartObjectScale = 1;
 
 init();
 animate();
@@ -113,6 +115,9 @@ function init() {
         scene.add(model);
         //Remove Loading
         loadingContainer.style.display = 'none';
+        // Add touch event listeners to the renderer
+        renderer.domElement.addEventListener('touchstart', onTouchStart, false);
+        renderer.domElement.addEventListener('touchmove', onTouchMove, false);
       },
       function (xhr) {
         // While it is loading, log the progress
@@ -183,6 +188,36 @@ function init() {
        }
      }
    });*/
+
+
+}
+
+function onTouchStart(event) {
+  const touches = event.touches;
+  if (touches.length === 2) {
+    // Calculate the initial distance between the two fingers
+    const dx = touches[1].clientX - touches[0].clientX;
+    const dy = touches[1].clientY - touches[0].clientY;
+    scaleStartDistance = Math.sqrt(dx * dx + dy * dy);
+    scaleStartObjectScale = model.scale.x; // Store the object's initial scale
+  }
+}
+
+function onTouchMove(event) {
+  event.preventDefault();
+  const touches = event.touches;
+  if (touches.length === 2) {
+    // Calculate the current distance between the two fingers
+    const dx = touches[1].clientX - touches[0].clientX;
+    const dy = touches[1].clientY - touches[0].clientY;
+    const currentDistance = Math.sqrt(dx * dx + dy * dy);
+
+    // Calculate the scale factor based on the distance change
+    const scale = scaleStartObjectScale * (currentDistance / scaleStartDistance);
+    console.log(scale);
+    // Apply the scale to the object
+    model.scale.set(scale, scale, scale);
+  }
 }
 
 function animate() {
