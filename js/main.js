@@ -16,7 +16,7 @@ let defaultEnvironment;
 let scanContainer = document.getElementById('scan-ground-panel');
 let scaleStartDistance = 0;
 let scaleStartObjectScale = 1;
-
+let objectPlace = false;
 init();
 animate();
 
@@ -145,6 +145,8 @@ function init() {
         model.position.setFromMatrixPosition(reticle.matrix);
         model.name = "phone";
         model.visible = true;
+        objectPlace = true;
+        reticle.visible = false;
       }
     }
   }
@@ -241,7 +243,7 @@ function render(timestamp, frame) {
     }
     if (hitTestSource) {
       const hitTestResults = frame.getHitTestResults(hitTestSource);
-      if (hitTestResults.length > 0) {
+      if (hitTestResults.length > 0 && !objectPlace) {
         const hit = hitTestResults[0];
         reticle.visible = true;
         reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
