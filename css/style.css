@@ -36,7 +36,8 @@ header h1 {
 }
 
 /* Styling for the loading panel */
-#loading-panel {
+#loading-panel,
+#scan-ground-panel {
   position: fixed;
   top: 0;
   left: 0;
@@ -47,6 +48,13 @@ header h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.message-panel {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
 }
 
 .loading-container {
@@ -79,6 +87,13 @@ header h1 {
 }
 
 #loading-text {
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.message-text {
   color: #fff;
   font-family: Arial, sans-serif;
   font-size: 18px;

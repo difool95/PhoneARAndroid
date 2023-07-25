@@ -40,6 +40,7 @@ function init() {
   renderer.useLegacyLights = false;
   // Get the loading container element
   var loadingContainer = document.getElementById('loading-panel');
+  var scanContainer = document.getElementById('scan-ground-panel');
   // Create the <img> element
   //var loadingImage = document.createElement('img');
   // Set the source (URL) of your loading GIF
@@ -145,11 +146,15 @@ function init() {
   // Set up the AR session event listeners
   renderer.xr.addEventListener("sessionstart", function () {
     //reticle.visible = true;
+    scanContainer.style.display = "flex";
+
   });
 
   renderer.xr.addEventListener("sessionend", function () {
     //reticle.visible = false;
     //model.visible = false;
+    scanContainer.style.display = "none";
+
   });
 
   // Add a listener to the window, so we can resize the window and the camera
@@ -202,7 +207,9 @@ function render(timestamp, frame) {
       if (hitTestResults.length > 0) {
         const hit = hitTestResults[0];
         reticle.visible = true;
-        reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix)
+        reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
+        //disable scanContainer
+        scanContainer.style.display = "none";
       }
       else {
         reticle.visible = false;
