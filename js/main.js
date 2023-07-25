@@ -13,6 +13,7 @@ let reticle, model;
 let hitTestSourceRequested = false;
 let hitTestSource = null;
 let defaultEnvironment;
+let scanContainer = document.getElementById('scan-ground-panel');
 
 init();
 animate();
@@ -40,7 +41,6 @@ function init() {
   renderer.useLegacyLights = false;
   // Get the loading container element
   var loadingContainer = document.getElementById('loading-panel');
-  var scanContainer = document.getElementById('scan-ground-panel');
   // Create the <img> element
   //var loadingImage = document.createElement('img');
   // Set the source (URL) of your loading GIF
@@ -116,7 +116,9 @@ function init() {
       },
       function (xhr) {
         // While it is loading, log the progress
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        //console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        console.log(xhr);
+        console.log(xhr.loaded);
       },
       function (error) {
         // If there is an error, log it
