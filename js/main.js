@@ -78,15 +78,15 @@ function init() {
 
     // The estimated lighting also provides an environment cubemap, which we can apply here.
     if (xrLight.environment) {
-      //scene.environment = xrLight.environment;
+      scene.environment = xrLight.environment;
     }
   });
 
   xrLight.addEventListener('estimationend', () => {
     console.log('estimationend');
     // Swap the lights back when we stop receiving estimated values.
-    //scene.add(defaultLight);
-    //scene.remove(xrLight);
+    scene.add(defaultLight);
+    scene.remove(xrLight);
 
     // Revert back to the default environment.
     scene.environment = defaultEnvironment;
@@ -122,8 +122,7 @@ function init() {
       function (xhr) {
         // While it is loading, log the progress
         //console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-        console.log(xhr);
-        console.log(xhr.loaded);
+
       },
       function (error) {
         // If there is an error, log it
