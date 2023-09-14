@@ -58,9 +58,10 @@ function init() {
     domOverlay: { root: document.getElementById('content') }
   }));
 
-  const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
-  defaultLight.position.set(0.5, 1, 0.25);
-  scene.add(defaultLight);
+  //const defaultLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+  //defaultLight.position.set(0.5, 1, 0.25);
+  //scene.add(defaultLight);
+
   // Don't add the XREstimatedLight to the scene initially.
   // It doesn't have any estimated lighting values until an AR session starts.
   //const ambientLight = new THREE.AmbientLight(0x333333, 2);
@@ -73,8 +74,8 @@ function init() {
     console.log('estimationstart');
 
     // Swap the default light out for the estimated one one we start getting some estimated values.
-    scene.add(xrLight);
-    scene.remove(defaultLight);
+    //scene.add(xrLight);
+    //scene.remove(defaultLight);
 
     // The estimated lighting also provides an environment cubemap, which we can apply here.
     if (xrLight.environment) {
@@ -85,8 +86,8 @@ function init() {
   xrLight.addEventListener('estimationend', () => {
     console.log('estimationend');
     // Swap the lights back when we stop receiving estimated values.
-    scene.add(defaultLight);
-    scene.remove(xrLight);
+    //scene.add(defaultLight);
+    //scene.remove(xrLight);
 
     // Revert back to the default environment.
     scene.environment = defaultEnvironment;
