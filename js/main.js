@@ -107,7 +107,7 @@ function init() {
     loadingContainer.style.display = 'flex';
     // Load the GLTF file
     loader.load(
-      `models/arch/arch.gltf`,
+      `models/arch/arch2.gltf`,
       function (gltf) {
         // If the file is loaded, add it to the scene
         model = gltf.scene;
