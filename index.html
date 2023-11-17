@@ -7,7 +7,7 @@
                 var app;
     function run() {
         // Create app object
-      app = new Nunu.App();
+     /* app = new Nunu.App();
               var onLoad = function () {
                     console.log("loaded");
                 }
@@ -17,7 +17,9 @@
          console.log(progress);
         }
       };
-      app.loadRunProgram("./app.nsp", onLoad, onProgress);
+      app.loadRunProgram("./app.nsp", onLoad, onProgress);*/
+        app = new Nunu.App();
+        app.loadApp('app.nsp', 'canvass')
     }
 
     // Resize app (must be called every time the window is resized)
@@ -25,5 +27,6 @@
       app.resize();
     }
 </script>
+        <canvas width="800" height="480" id="canvass"></canvas>
     </body>
 </html>
