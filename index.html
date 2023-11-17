@@ -1,8 +1,8 @@
 <html>
     <head>
+         <script type="text/javascript" src="./nunu.min.js"></script>
     </head>
     <body onload="run();">
-          <script type="text/javascript" src="./nunu.min.js"></script>
             <script type="text/javascript">
                 var app;
     function run() {
@@ -18,8 +18,7 @@
         }
       };
       app.loadRunProgram("./app.nsp", onLoad, onProgress);*/
-        app = new Nunu.App();
-        app.loadApp('app.nsp', 'canvass')
+        Nunu.App.loadApp('app.nsp', 'canvass')
     }
 
     // Resize app (must be called every time the window is resized)
