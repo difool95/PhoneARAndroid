@@ -1,31 +1,8 @@
 <html>
     <head>
-         <script type="text/javascript" src="./nunu.min.js"></script>
+        <script src="nunu.min.js"></script>
     </head>
-    <body onload="run();">
-            <script type="text/javascript">
-                var app;
-    function run() {
-        // Create app object
-     /* app = new Nunu.App();
-              var onLoad = function () {
-                    console.log("loaded");
-                }
-           var onProgress = function (event) {
-        if (event.lengthComputable) {
-         var progress = event.loaded / event.total * 100;
-         console.log(progress);
-        }
-      };
-      app.loadRunProgram("./app.nsp", onLoad, onProgress);*/
-        Nunu.App.loadApp('app.nsp', 'canvass')
-    }
-
-    // Resize app (must be called every time the window is resized)
-    function resize() {
-      app.resize();
-    }
-</script>
-        <canvas width="800" height="480" id="canvass"></canvas>
+    <body onload="Nunu.App.loadApp('coca.nsp', 'canvas')">
+        <canvas width="800" height="480" id="canvas"></canvas>
     </body>
 </html>
