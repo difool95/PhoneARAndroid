@@ -1,8 +1,19 @@
 <html>
-    <head>
-        <script src="nunu.min.js"></script>
-    </head>
-    <body onload="Nunu.App.loadApp('test1.nsp', 'canvas')">
-        <canvas width="800" height="480" id="canvas"></canvas>
-    </body>
+  <head>
+    <script src="nunu.min.js"></script>
+  </head>
+  <body>
+    <button id="loadButton">Load App</button>
+    <canvas width="800" height="480" id="canvas"></canvas>
+
+    <script>
+      // Function to load the app
+      function loadApp() {
+        Nunu.App.loadApp('test1.nsp', 'canvas');
+      }
+
+      // Add an event listener to the button to load the app when clicked
+      document.getElementById('loadButton').addEventListener('click', loadApp);
+    </script>
+  </body>
 </html>
