@@ -21,12 +21,13 @@
     imageTargetSrc: "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind"
       });
       const {renderer, scene, camera} = mindarThree;
-       Nunu.App.loadApp('test.nsp', 'canvas', function(app){
-            console.log(app);
-            console.log("program html ");
-            console.log(app.program);
+      var app;
+      app = new Nunu.App();
+      app.loadRunProgram('test.nsp', onLoad, onProgress);
 
-    app.runMind(renderer, camera);
+      // Nunu.App.loadApp('test.nsp', 'canvas', function(app){
+              var onLoad = function () {
+   app.runMind(renderer, camera);
     console.log(app.program.scene);
       const anchor = mindarThree.addAnchor(0);
       // const geometry = new THREE.PlaneGeometry(1, 0.55);
@@ -47,8 +48,14 @@
     mindarThree.stop();
     mindarThree.renderer.setAnimationLoop(null);
       });
-        });
-    
+              }
+              
+     var onProgress = function (event) {
+        if (event.lengthComputable) {
+          var progress = event.loaded / event.total * 100;
+          console.log(progress);
+        }
+      };
     </script>
     <style>
       body {
