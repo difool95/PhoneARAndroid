@@ -34,8 +34,8 @@
         console.log("clicked start button");
         // Nunu.App.loadApp('Velo.nsp', 'canvas');
         app.loadProgramAsync('Velo.nsp', onLoad, onProgress);
-      });
 
+        
       var onload = function(){
         console.log("on load ");
         console.log(app.arAvailable());
@@ -47,6 +47,8 @@
           console.log(progress);
         }
       };
+      });
+
     </script>
   </body>
 </html>
