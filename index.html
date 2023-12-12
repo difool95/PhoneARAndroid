@@ -35,15 +35,16 @@
       startButton.addEventListener("click", () => {
         console.log("clicked start button");
         // Nunu.App.loadApp('Velo.nsp', 'canvas');
-        app.loadProgramAsync('Velo.nsp', onLoad, onProgress);
+        app.loadRunProgram('Velo.nsp', onLoad, onProgress);
 
 
-      var onLoad = function(){
+      const onLoad = function(){
         console.log("on load ");
         console.log(app.arAvailable());
       }
 
-     var onProgress = function (event) {
+     const onProgress = function (event) {
+        console.log("progressing");
         if (event.lengthComputable) {
           var progress = event.loaded / event.total * 100;
           console.log(progress);
