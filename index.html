@@ -3,11 +3,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="nunu.min.js"></script>    
     <script>
-      import * as THREE from 'three';
-      import { MindARThree } from 'mindar-image-three';
-      app = new Nunu.App();
-
-   const startButton = document.querySelector("#startButton");
+      canvas = document.getElementById("canvas");
+      app = new Nunu.App(canvas);
+        const startButton = document.querySelector("#startButton");
       startButton.addEventListener("click", () => {
         console.log("clicked start button");
             // Nunu.App.loadApp('Velo.nsp', 'canvas');
