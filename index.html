@@ -27,15 +27,17 @@
     </div>
     <canvas width="800" height="480" id="canvas"></canvas>
       <script>
-      var canvas = document.getElementById("canvas");
+        var app, canvas;
+      canvas = document.getElementById("canvas");
       app = new Nunu.App(canvas);
+      console.log(app);
       var startButton = document.getElementById("startButton");
       startButton.addEventListener("click", () => {
         console.log("clicked start button");
         // Nunu.App.loadApp('Velo.nsp', 'canvas');
         app.loadProgramAsync('Velo.nsp', onLoad, onProgress);
 
-        
+
       var onLoad = function(){
         console.log("on load ");
         console.log(app.arAvailable());
