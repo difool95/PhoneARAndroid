@@ -34,6 +34,7 @@
        const onLoad = function(){
         console.log("on load ");
         console.log(app.arAvailable());
+        app.toggleAR();
       }
 
      const onProgress = function (event) {
@@ -48,9 +49,6 @@
         console.log("clicked start button");
         // Nunu.App.loadApp('Velo.nsp', 'canvas');
         app.loadRunProgram('Velo.nsp', onLoad, onProgress);
-
-
-
       });
 
     </script>
