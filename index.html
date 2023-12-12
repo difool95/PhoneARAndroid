@@ -2,30 +2,6 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="nunu.min.js"></script>    
-    <script>
-      canvas = document.getElementById("canvas");
-      app = new Nunu.App(canvas);
-        const startButton = document.querySelector("#startButton");
-      startButton.addEventListener("click", () => {
-        console.log("clicked start button");
-            // Nunu.App.loadApp('Velo.nsp', 'canvas');
-            app.loadProgramAsync('Velo.nsp', onLoad, onProgress);
-      });
-
-      var onload = function(){
-        console.log("on load ");
-        console.log(app.arAvailable());
-      }
-
-     var onProgress = function (event) {
-        if (event.lengthComputable) {
-          var progress = event.loaded / event.total * 100;
-          console.log(progress);
-        }
-      };
-
-
-    </script>
     <style>
       body {
     margin: 0;
@@ -50,5 +26,27 @@
       <button id="stopButton">Stop</button>
     </div>
     <canvas width="800" height="480" id="canvas"></canvas>
+      <script>
+      var canvas = document.getElementById("canvas");
+      app = new Nunu.App(canvas);
+      var startButton = document.getElementById("startButton");
+      startButton.addEventListener("click", () => {
+        console.log("clicked start button");
+        // Nunu.App.loadApp('Velo.nsp', 'canvas');
+        app.loadProgramAsync('Velo.nsp', onLoad, onProgress);
+      });
+
+      var onload = function(){
+        console.log("on load ");
+        console.log(app.arAvailable());
+      }
+
+     var onProgress = function (event) {
+        if (event.lengthComputable) {
+          var progress = event.loaded / event.total * 100;
+          console.log(progress);
+        }
+      };
+    </script>
   </body>
 </html>
