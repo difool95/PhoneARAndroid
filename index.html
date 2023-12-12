@@ -31,14 +31,7 @@
       canvas = document.getElementById("canvas");
       app = new Nunu.App(canvas);
       console.log(app);
-      var startButton = document.getElementById("startButton");
-      startButton.addEventListener("click", () => {
-        console.log("clicked start button");
-        // Nunu.App.loadApp('Velo.nsp', 'canvas');
-        app.loadRunProgram('Velo.nsp', onLoad, onProgress);
-
-
-      const onLoad = function(){
+       const onLoad = function(){
         console.log("on load ");
         console.log(app.arAvailable());
       }
@@ -50,6 +43,14 @@
           console.log(progress);
         }
       };
+      var startButton = document.getElementById("startButton");
+      startButton.addEventListener("click", () => {
+        console.log("clicked start button");
+        // Nunu.App.loadApp('Velo.nsp', 'canvas');
+        app.loadRunProgram('Velo.nsp', onLoad, onProgress);
+
+
+
       });
 
     </script>
