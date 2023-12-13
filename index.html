@@ -30,6 +30,7 @@
       canvas = document.getElementById("canvas");
       app = new Nunu.App(canvas);
        const onLoad = function(){
+        console.log(app);
         if(app.arAvailable()){
             app.toggleAR();
         }
@@ -55,7 +56,6 @@
       };
       var startButton = document.getElementById("startButton");
       startButton.addEventListener("click", () => {
-        console.log("clicked start button");
         // Nunu.App.loadApp('Velo.nsp', 'canvas');
         app.loadRunProgram('Video.nsp', onLoad, onProgress);
       });
