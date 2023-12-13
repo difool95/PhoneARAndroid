@@ -23,18 +23,16 @@
   <body>
     <div id="control">
       <button id="startButton">Start</button>
-      <button id="stopButton">Stop</button>
     </div>
-    <canvas width="800" height="480" id="canvas"></canvas>
+    <canvas width="400" height="480" id="canvas"></canvas>
       <script>
-        var app, canvas;
+      var app, canvas;
       canvas = document.getElementById("canvas");
       app = new Nunu.App(canvas);
-      console.log(app);
        const onLoad = function(){
-        console.log("on load ");
-        console.log(app.arAvailable());
-        app.toggleAR();
+        if(app.arAvailable()){
+            app.toggleAR();
+        }
       }
 
      const onProgress = function (event) {
