@@ -20,7 +20,7 @@
       }
     </style>
   </head>
-  <body>
+  <body onresize="resize();">
     <div id="control">
       <button id="startButton">Start</button>
     </div>
@@ -35,6 +35,17 @@
         }
       }
 
+      //Should be called every time the window is resized
+        function resize()
+        {
+            //Update canvas width and height attributes
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            //Resize app
+            app.resize();
+        }
+        
      const onProgress = function (event) {
         console.log("progressing");
         if (event.lengthComputable) {
@@ -46,7 +57,7 @@
       startButton.addEventListener("click", () => {
         console.log("clicked start button");
         // Nunu.App.loadApp('Velo.nsp', 'canvas');
-        app.loadRunProgram('Velo.nsp', onLoad, onProgress);
+        app.loadRunProgram('Video.nsp', onLoad, onProgress);
       });
 
     </script>
